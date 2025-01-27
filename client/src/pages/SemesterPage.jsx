@@ -5,7 +5,7 @@ const SemesterPage = () => {
   const navigate = useNavigate();
   const semesters = Array.from({ length: 8 }, (_, i) => i + 1);
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-30">
       <h2 className="text-2xl font-bold text-center mb-6 text-blue-800">
         Select a Semester
       </h2>

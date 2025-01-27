@@ -6,7 +6,7 @@ const SubjectDetailsPage = () => {
     const {semId, subjectId} = useParams()
     const subjectName = subjects[semId][subjectId - 1]
   return (
-    <div>
+    <div className="pt-30">
         <h1 className="text-2xl font-bold text-center mb-6 text-blue-800">
             Semester - {semId} - {subjectName}
         </h1>

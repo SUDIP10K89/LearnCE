@@ -3,14 +3,14 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section id="about" className="bg-grey-100 min-h-screen flex flex-col items-center justify-center py-12 px-6">
+    <section id="about" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center py-12 px-6">
       <motion.div
         className="text-center max-w-3xl"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-4xl font-extrabold text-blue-700 mb-4">About Us</h1>
+        <h1 className="text-4xl font-extrabold text-gray-700 mb-4">About Us</h1>
         <p className="text-lg text-gray-600 leading-relaxed mb-6">
           Welcome to <span className="text-blue-500 font-bold">LEARN CE</span> !, your one-stop solution for educational resources tailored for Computer Engineering students of Tribhuvan University (TU).
 
@@ -28,26 +28,27 @@ We understand the unique challenges and aspirations of students pursuing Compute
         transition={{ duration: 1 }}
       >
         <motion.div
-          className="bg-gradient-to-t from-blue-500 to-purple-500 p-6 rounded-lg shadow-lg text-center"
+          className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
         >
-          <h3 className="text-xl font-semibold text-blue-700 mb-2">Our Mission</h3>
-          <p className="text-white">To be a global leader in delivering exceptional and creative solutions.</p>
+          <h3 className="text-xl font-semibold text-gray-700 mb-2">Our Mission</h3>
+          <p className="text-gray-600 mb-3">To be a global leader in delivering exceptional and creative solutions.</p>
         </motion.div>
         <motion.div
-          className="bg-gradient-to-t from-blue-500 to-purple-500 p-6 rounded-lg shadow-lg text-center"
+          className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
         >
-          <h3 className="text-xl font-semibold text-blue-700 mb-2">Our Vision</h3>
-          <p className="text-white">To be a global leader in delivering exceptional and creative solutions.</p>
+          <h3 className="text-xl font-semibold text-gray-700 mb-2">Our Vision</h3>
+          <p className="text-gray-600 mb-3">To be a global leader in delivering exceptional and creative solutions.</p>
         </motion.div>
         <motion.div
-          className="bg-gradient-to-t from-blue-500 to-purple-500 p-6 rounded-lg shadow-lg text-center"
+          className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
         >
-          <h3 className="text-xl font-semibold text-blue-700 mb-2">Our Values</h3>
-          <p className="text-white">To be a global leader in delivering exceptional and creative solutions.</p>
+          <h3 className="text-xl font-semibold text-gray-700 mb-2">Our goal</h3>
+          <p className="text-gray-600 mb-3">To be a global leader in delivering exceptional and creative solutions.</p>
         </motion.div>
+        
       </motion.div>
     </section>
   );

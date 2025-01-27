@@ -3,7 +3,6 @@ import { useParams ,useNavigate } from "react-router-dom"
  export const subjects = {
     1: ["Engineering Mathematics I","Computer Programming","Engineering Drawing","Fundamentals of Electrical and Electronics Engineering","Engineering Physics","Engineering Workshop"],
     2: ["Engineering Mathematics II","Object Oriented Programming","Digital Logic","Electronic Devices and Circuits","Engineering Chemistry","Electrical Circuits and Machines"],
-    3:[]
 }
 
 const SubjectPage = () => {
@@ -12,7 +11,7 @@ const SubjectPage = () => {
     const navigate = useNavigate()
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-30">
     <h1 className="text-2xl font-bold text-center mb-6 text-blue-800">
       Subjects for Semester {semId}
     </h1>
