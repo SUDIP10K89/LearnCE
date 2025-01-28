@@ -10,7 +10,7 @@ const Subscribe = () => {
                 <input 
                     type="email" 
                     placeholder="Enter your email" 
-                    className="w-full sm:flex-grow px-4 py-3 rounded-l-full border border-gray-700 focus:outline-none"
+                    className="w-full sm:flex-grow px-4 py-3 rounded-l-full border border-purple-500 focus:outline-none text-gray-600"
                 />
                 <button className="bg-gradient-to-tl from-blue-500 to-purple-500 text-white px-6 py-3 rounded-r-full hover:bg-blue-700 transition">
                     Subscribe
