@@ -19,14 +19,8 @@ export default function Navbar() {
           <a href="#home" className="text-white font-medium hover:text-cyan-200 transition">
             Home
           </a>
-          <a href="#about" className="text-white font-medium hover:text-cyan-200 transition">
-            About
-          </a>
-          <a href="#services" className="text-white font-medium hover:text-cyan-200 transition">
-            Services
-          </a>
-          <a href="#contact" className="text-white font-medium hover:text-cyan-200 transition">
-            Contact
+          <a href="" className="text-white font-medium hover:text-cyan-200 transition">
+            Semester
           </a>
         </div>
         <Button className="md:hidden text-white" onClick={toggleMenu}>
