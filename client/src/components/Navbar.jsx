@@ -19,7 +19,7 @@ export default function Navbar() {
           <a href="#home" className="text-white font-medium hover:text-cyan-200 transition">
             Home
           </a>
-          <a href="" className="text-white font-medium hover:text-cyan-200 transition">
+          <a href="#semester" className="text-white font-medium hover:text-cyan-200 transition">
             Semester
           </a>
         </div>
@@ -43,25 +43,11 @@ export default function Navbar() {
               Home
             </a>
             <a
-              href="#about"
-              className="text-white font-medium hover:text-gray-200 transition"
-              onClick={toggleMenu}
-            >
-              About
-            </a>
-            <a
               href="#services"
               className="text-white font-medium hover:text-gray-200 transition"
               onClick={toggleMenu}
             >
-              Services
-            </a>
-            <a
-              href="#contact"
-              className="text-white font-medium hover:text-gray-200 transition"
-              onClick={toggleMenu}
-            >
-              Contact
+              Semester
             </a>
           </div>
         </motion.div>
