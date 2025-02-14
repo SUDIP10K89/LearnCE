@@ -32,21 +32,22 @@ We understand the unique challenges and aspirations of students pursuing Compute
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
         >
           <h3 className="text-xl font-semibold text-gray-700 mb-2">Our Mission</h3>
-          <p className="text-gray-600 mb-3">To be a global leader in delivering exceptional and creative solutions.</p>
+          <p className="text-gray-600 mb-3">Empower students with free, high-quality computer engineering resources for academic and practical learning.</p>
         </motion.div>
         <motion.div
           className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
         >
           <h3 className="text-xl font-semibold text-gray-700 mb-2">Our Vision</h3>
-          <p className="text-gray-600 mb-3">To be a global leader in delivering exceptional and creative solutions.</p>
+          <p className="text-gray-600 mb-3">Become the leading platform for accessible, organized, and up-to-date computer engineering knowledge.</p>
         </motion.div>
         <motion.div
           className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
         >
           <h3 className="text-xl font-semibold text-gray-700 mb-2">Our goal</h3>
-          <p className="text-gray-600 mb-3">To be a global leader in delivering exceptional and creative solutions.</p>
+          <p className="text-gray-600 mb-3">
+Provide structured, up-to-date study materials, support hands-on learning, foster collaboration, and enable networking.</p>
         </motion.div>
         
       </motion.div>
