@@ -14,7 +14,7 @@ const Subscribe = () => {
     setMessage("");
 
     try {
-      const response = await axios.post("http://localhost:5000/subscribe", { email });
+      const response = await axios.post("https://learnce.onrender.com/subscribe", { email });
       setMessage(response.data.message);
       setEmail("");
     } catch (error) {
