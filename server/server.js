@@ -7,9 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -26,10 +23,21 @@ app.post("/subscribe", async (req, res) => {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Subscription Successful",
-      text: "Thank you for subscribing to Learn CE!",
+      subject: "You're in! Welcome to Learn CE 🎉",
+      text: `Hey there!,  
+
+Thank you for joining the Learn CE community! 🚀 We're thrilled to have you on board.  
+
+From now on, you’ll receive the latest updates, exclusive resources, and valuable insights straight to your inbox. We promise to keep things useful and exciting—no spam, just pure learning goodness.  
+
+Stay curious, keep exploring, and let's grow together!  
+
+If you ever have any questions or suggestions, just hit reply—we’d love to hear from you.  
+
+Best,  
+The Learn CE Team`,
     });
-    res.json({ message: "Subscription successful" });
+    res.json({ message: "Subscription Successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Error sending email" });
