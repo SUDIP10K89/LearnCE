@@ -5,7 +5,7 @@ const OldQuestions = () => {
 
   return (
     <div className='pt-80'>
-      <h2>This is Old question</h2>
+     
       
       <div className="mt-4">
         {/* Download Button */}
