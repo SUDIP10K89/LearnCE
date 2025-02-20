@@ -1,20 +1,32 @@
-import React from 'react';
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { subjects } from "./SubjectPage";
 
 const OldQuestions = () => {
+
+  const { semId, subjectId } = useParams();
+  const subjectName = subjects[semId][subjectId - 1];
+
   // Example file data - replace with your actual data
   const files = [
-    { name: '2079', url: 'path/to/your/file1.pdf' },
-    { name: '2078', url: 'path/to/your/file2.pdf' },
-    { name: '2077', url: 'path/to/your/file3.pdf' },
+    { name: "2079", url: "path/to/your/file1.pdf" },
+    { name: "2078", url: "path/to/your/file2.pdf" },
+    { name: "2077", url: "path/to/your/file3.pdf" },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Previous Year Questions</h2>
-      
+    <div className="container mx-auto px-4 py-8 pt-20">
+      <div className="bg-gradient-to-r from-blue-700 to-purple-700 text-white p-8 rounded-lg mb-8">
+        <h1 className="text-3xl font-bold text-center">{subjectName}</h1>
+        <p className="text-center mt-2 text-blue-100">Semester {semId}</p>
+      </div>
+      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+        Previous Year Questions
+      </h2>
+
       <div className="max-w-3xl mx-auto space-y-4">
         {files.map((file, index) => (
-          <div 
+          <div
             key={index}
             className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200"
           >
@@ -23,7 +35,7 @@ const OldQuestions = () => {
                 <div className="text-gray-600">📄</div>
                 <div className="font-medium text-gray-800">{file.name}</div>
               </div>
-              
+
               <div className="flex space-x-3">
                 <a
                   href={file.url}

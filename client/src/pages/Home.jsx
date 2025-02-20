@@ -8,7 +8,7 @@ import SearchBar from "../components/SearchBar";
 const Home = () => {
 
   return (
-    <div>
+    <div className="pt-16">
       <Hero/>
       {/* <SearchBar/> */}
       <About/>
