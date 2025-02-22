@@ -11,16 +11,11 @@
   "start_url": "/",
   "display": "fullscreen",
   "theme_color": "#000000",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
   "id": "learnce",
   "description": "Computer Engineering resources sharing app.",
   "dir": "auto",
   "lang": "en",
-  "orientation": "any",
-  "display_override": [
-    "fullscreen",
-    "window-controls-overlay"
-  ],
   "categories": [
     "education"
   ]
