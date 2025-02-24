@@ -25,7 +25,7 @@ const SubjectPage = () => {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8 pt-20 ">
+        <div className="container mx-auto px-4 py-8 pt-25 ">
             <div className="bg-gradient-to-r from-blue-700 to-purple-700 text-white p-8 rounded-lg mb-8">
                 <h1 className="text-3xl font-bold text-center">
                     Semester {semId}
