@@ -1,4 +1,4 @@
-import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import SemesterPage from "./pages/SemesterPage";
 import SubjectPage from "./pages/SubjectPage";
@@ -7,12 +7,13 @@ import OldQuestions from "./pages/OldQuestions";
 import PracticeBooks from "./pages/PracticeBooks";
 import SlidesNotes from "./pages/SlidesNotes";
 
+
 const App = () => {
   //Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('../sw.js')
-      .then((registration) => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => {
         console.log('ServiceWorker registration successful');
       })
       .catch((err) => {
