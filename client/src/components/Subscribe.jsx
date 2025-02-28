@@ -25,7 +25,7 @@ const Subscribe = () => {
   };
 
   return (
-    <section className="bg-blue-50 py-16">
+    <section className="py-16">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-4 text-gray-700">Stay Updated</h2>
         <p className="text-gray-500 mb-8">Subscribe to our newsletter for the latest resources and feature updates</p>
