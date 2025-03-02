@@ -1,10 +1,8 @@
-import React from "react";
 import About from "../components/About";
 import Footer from "../components/Footer";
 import Subscribe from "../components/Subscribe";
 import Hero from "../components/Hero";
-import SearchBar from "../components/SearchBar";
-import CommentSection from "../components/Comment";
+// import SearchBar from "../components/SearchBar";
 
 const Home = () => {
 
@@ -13,7 +11,6 @@ const Home = () => {
       <Hero/>
       {/* <SearchBar/> */}
       <About/>
-      <CommentSection />
       <Subscribe/>
       <Footer/>
     </div>

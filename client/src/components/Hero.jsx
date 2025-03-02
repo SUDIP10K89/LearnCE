@@ -4,7 +4,7 @@ const Hero = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-500 to-purple-600 overflow-hidden">
+        <div className=" min-h-screen bg-gradient-to-br from-blue-600 via-blue-500 to-purple-600 overflow-hidden">
             <div className="container mx-auto px-4 py-12 md:py-20">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-12">
                     {/* Content Section */}
@@ -31,12 +31,12 @@ const Hero = () => {
                             </button>
                             
                             <button
-                                onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
+                                onClick={() => navigate("/discussion")}
                                 className="px-8 py-4 bg-transparent border-2 border-white text-white 
                                          rounded-lg hover:bg-white/10 transition-all duration-300
                                          font-semibold text-lg"
                             >
-                                Learn More
+                                Discussion
                             </button>
                         </div>
                     </div>
