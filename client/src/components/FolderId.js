@@ -13,9 +13,9 @@ export const FolderId = [
         {
           name: "Computer Programming",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            questions: "1-UV0Gl1s3i6qYO_Oe96Z63YUDfGeME_0",
+            books: "1-Jq7Tr3aPYHsmTEsxgbo8Qd_zrFw7QDq",
+            notes: "1-SJ7EPCn3Io0w2IBJp5qy9YULtZyPlY6",
           },
         },
         {
