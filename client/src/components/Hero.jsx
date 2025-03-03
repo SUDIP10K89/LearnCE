@@ -30,14 +30,14 @@ const Hero = () => {
                                 View Resources
                             </button>
                             
-                            <button
+                            {/* <button
                                 onClick={() => navigate("/discussion")}
                                 className="px-8 py-4 bg-transparent border-2 border-white text-white 
                                          rounded-lg hover:bg-white/10 transition-all duration-300
                                          font-semibold text-lg"
                             >
                                 Discussion
-                            </button>
+                            </button> */}
                         </div>
                     </div>
 

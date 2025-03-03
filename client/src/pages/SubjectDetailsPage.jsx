@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { subjects } from "./SubjectPage";
 
@@ -15,13 +14,13 @@ const SubjectDetailsPage = () => {
       description: "Access previous year question papers",
     },
     {
-      title: "Practice Books",
+      title: "Guide Books",
       icon: "📚",
       path: `/semesters/${semId}/subjects/${subjectId}/practice`,
       description: "Download study materials and exercises",
     },
     {
-      title: "Slides And Notes",
+      title: "Study Notes",
       icon: "📑",
       path: `/semesters/${semId}/subjects/${subjectId}/notes`,
       description: "View lecture slides and study notes",

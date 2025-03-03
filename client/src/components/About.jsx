@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
+import ResourceList from "./ResourceList";
 
 export default function About() {
   return (
     <section id="about" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center py-12 px-6">
+      <ResourceList />
       <motion.div
         className="text-center max-w-3xl"
         initial={{ opacity: 0, y: 50 }}
