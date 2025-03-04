@@ -62,7 +62,7 @@ const OldQuestions = () => {
                 <div className="flex space-x-3">
                   <a
                     href={`https://drive.google.com/uc?export=download&id=${file.id}`}
-                    download
+                    download={file.name}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600
                               transition-colors duration-300 text-sm md:text-base flex items-center"
                   >
