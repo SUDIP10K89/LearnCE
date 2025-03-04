@@ -7,6 +7,7 @@ import { FolderId } from "../components/FolderId";
 const OldQuestions = () => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState({}); // Track loading state per file
   const { semId, subjectId } = useParams();
   const subjectName = subjects[semId][subjectId - 1];
 
@@ -20,10 +21,9 @@ const OldQuestions = () => {
         const response = await axios.get(
           `https://www.googleapis.com/drive/v3/files?q='${GOOGLE_DRIVE_FOLDER_ID}'+in+parents&key=${GOOGLE_API_KEY}`
         );
-        console.log("Fetched files:", response.data.files); // Debug: Check file list
         setFiles(response.data.files);
       } catch (error) {
-        console.error("Error fetching files:", error.response || error);
+        console.error("Error fetching files:", error);
       } finally {
         setLoading(false);
       }
@@ -34,14 +34,12 @@ const OldQuestions = () => {
 
   const handleDownload = async (fileId, fileName) => {
     const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+    setDownloading((prev) => ({ ...prev, [fileId]: true })); // Set loading for this file
     try {
-      console.log(`Attempting to download file: ${fileName} (ID: ${fileId})`); // Debug
       const response = await axios.get(
         `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${GOOGLE_API_KEY}`,
         { responseType: "blob" }
       );
-      console.log("Download response:", response); // Debug: Check response
-
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -51,12 +49,10 @@ const OldQuestions = () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Download error:", error.response || error); // Debug: Log full error
-      alert(
-        "Failed to download the file. It might be due to permissions or accessibility. Try previewing it instead."
-      );
-      // Fallback to direct download link
-      window.open(`https://drive.google.com/uc?export=download&id=${fileId}`, "_blank");
+      console.error("Download failed:", error);
+      alert("Failed to download the file. Please try previewing it instead.");
+    } finally {
+      setDownloading((prev) => ({ ...prev, [fileId]: false })); // Clear loading state
     }
   };
 
@@ -91,10 +87,41 @@ const OldQuestions = () => {
                 <div className="flex space-x-3">
                   <button
                     onClick={() => handleDownload(file.id, file.name)}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300 text-sm md:text-base flex items-center"
+                    disabled={downloading[file.id]} // Disable button while downloading
+                    className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300 text-sm md:text-base flex items-center ${
+                      downloading[file.id] ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                   >
-                    <span className="hidden md:inline">Download</span>
-                    <span className="md:hidden">📥</span>
+                    {downloading[file.id] ? (
+                      <span className="flex items-center">
+                        <svg
+                          className="w-4 h-4 animate-spin mr-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+                        </svg>
+                        <span className="hidden md:inline">Downloading...</span>
+                        <span className="md:hidden">⏳</span>
+                      </span>
+                    ) : (
+                      <>
+                        <span className="hidden md:inline">Download</span>
+                        <span className="md:hidden">📥</span>
+                      </>
+                    )}
                   </button>
 
                   <a
