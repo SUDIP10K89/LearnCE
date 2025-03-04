@@ -12,7 +12,7 @@ import Discussion from "./pages/Discussion";
 const App = () => {
   return (
     <div>
-      <InstallButton/>
+      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/discussion" element={<Discussion />} />
