@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="pt-16 bg-gray-100">
       <Hero/>
-      <InstallButton/>
+      
       {/* <SearchBar/> */}
       <About/>
       <Subscribe/>
