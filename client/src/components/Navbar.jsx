@@ -14,7 +14,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home", id: "home" },
     { href: "/semesters", label: "Semester", id: "semester" },
-    { href: "/discussion", label: "Discussion", id: "discussion" },
+    // { href: "/discussion", label: "Discussion", id: "discussion" },
   ];
 
   return (
