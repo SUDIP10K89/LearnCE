@@ -7,12 +7,13 @@ import OldQuestions from "./pages/OldQuestions";
 import PracticeBooks from "./pages/PracticeBooks";
 import SlidesNotes from "./pages/SlidesNotes";
 import Discussion from "./pages/Discussion";
+import InstallButton from "./components/InstallButton";
 
 
 const App = () => {
   return (
     <div>
-      
+      <InstallButton/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/discussion" element={<Discussion />} />
