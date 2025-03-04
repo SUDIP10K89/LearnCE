@@ -1,4 +1,4 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { subjects } from "./SubjectPage";
 import axios from "axios";
@@ -13,24 +13,53 @@ const OldQuestions = () => {
   useEffect(() => {
     const GOOGLE_DRIVE_FOLDER_ID = FolderId[semId - 1].subjects[subjectId - 1].categories.questions;
     const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
-    
+
     const fetchFiles = async () => {
       setLoading(true);
       try {
         const response = await axios.get(
           `https://www.googleapis.com/drive/v3/files?q='${GOOGLE_DRIVE_FOLDER_ID}'+in+parents&key=${GOOGLE_API_KEY}`
         );
+        console.log("Fetched files:", response.data.files); // Debug: Check file list
         setFiles(response.data.files);
       } catch (error) {
-        console.error("Error fetching files:", error);
+        console.error("Error fetching files:", error.response || error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchFiles();
   }, [semId, subjectId]);
-  
+
+  const handleDownload = async (fileId, fileName) => {
+    const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+    try {
+      console.log(`Attempting to download file: ${fileName} (ID: ${fileId})`); // Debug
+      const response = await axios.get(
+        `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${GOOGLE_API_KEY}`,
+        { responseType: "blob" }
+      );
+      console.log("Download response:", response); // Debug: Check response
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download error:", error.response || error); // Debug: Log full error
+      alert(
+        "Failed to download the file. It might be due to permissions or accessibility. Try previewing it instead."
+      );
+      // Fallback to direct download link
+      window.open(`https://drive.google.com/uc?export=download&id=${fileId}`, "_blank");
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 pt-25">
       <div className="bg-gradient-to-r from-blue-700 to-purple-700 text-white p-8 rounded-lg mb-8">
@@ -40,7 +69,7 @@ const OldQuestions = () => {
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
         Previous Year Questions
       </h2>
-      
+
       <div className="max-w-3xl mx-auto space-y-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-12">
@@ -58,24 +87,21 @@ const OldQuestions = () => {
                   <div className="text-gray-600">📄</div>
                   <div className="font-medium text-gray-800">{file.name}</div>
                 </div>
-                
+
                 <div className="flex space-x-3">
-                  <a
-                    href={`https://drive.google.com/file/d/${file.id}`}
-                    download={file.name}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600
-                              transition-colors duration-300 text-sm md:text-base flex items-center"
+                  <button
+                    onClick={() => handleDownload(file.id, file.name)}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300 text-sm md:text-base flex items-center"
                   >
                     <span className="hidden md:inline">Download</span>
                     <span className="md:hidden">📥</span>
-                  </a>
-                  
+                  </button>
+
                   <a
                     href={`https://drive.google.com/file/d/${file.id}/view`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600
-                              transition-colors duration-300 text-sm md:text-base flex items-center"
+                    className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-300 text-sm md:text-base flex items-center"
                   >
                     <span className="hidden md:inline">Preview</span>
                     <span className="md:hidden">👁️</span>
