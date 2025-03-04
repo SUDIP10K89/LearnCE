@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { subjects } from "./SubjectPage";
 import axios from "axios";
@@ -61,7 +61,7 @@ const OldQuestions = () => {
                 
                 <div className="flex space-x-3">
                   <a
-                    href={`https://drive.google.com/uc?export=download&id=${file.id}`}
+                    href={`https://drive.google.com/file/d/${file.id}`}
                     download={file.name}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600
                               transition-colors duration-300 text-sm md:text-base flex items-center"
