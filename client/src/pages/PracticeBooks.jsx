@@ -81,7 +81,7 @@ const PracticeBooks = () => {
               <div className="flex items-center justify-between p-4 md:p-6">
                 <div className="flex items-center space-x-4">
                   <div className="text-gray-600">📖</div>
-                  <div className="font-medium text-gray-800">{file.name}</div>
+                  <div className="font-medium text-gray-800">{file.name.split('.').slice(0, -1).join('.')}</div>
                 </div>
 
                 <div className="flex space-x-3">
