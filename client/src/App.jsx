@@ -7,6 +7,7 @@ import OldQuestions from "./pages/OldQuestions";
 import PracticeBooks from "./pages/PracticeBooks";
 import SlidesNotes from "./pages/SlidesNotes";
 import Discussion from "./pages/Discussion";
+import Discussion from "./pages/Login";
 import InstallButton from "./components/InstallButton";
 
 
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/semesters/:semId/subjects/:subjectId/oldQ" element={<OldQuestions />} />
           <Route path="/semesters/:semId/subjects/:subjectId/practice" element={<PracticeBooks />} />
           <Route path="/semesters/:semId/subjects/:subjectId/notes" element={<SlidesNotes />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
     </div>
   );
