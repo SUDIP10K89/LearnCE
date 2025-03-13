@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LearnCEAuth = () => {
+const Login = () => {
   // Firebase authentication handlers
   const signInWithGoogle = () => {
     console.log('Sign in with Google');
@@ -57,4 +57,4 @@ const LearnCEAuth = () => {
   );
 };
 
-export default LearnCEAuth;
+export default Login;
