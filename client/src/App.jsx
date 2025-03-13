@@ -7,7 +7,7 @@ import OldQuestions from "./pages/OldQuestions";
 import PracticeBooks from "./pages/PracticeBooks";
 import SlidesNotes from "./pages/SlidesNotes";
 import Discussion from "./pages/Discussion";
-import Discussion from "./pages/Login";
+import Login from "./pages/Login";
 import InstallButton from "./components/InstallButton";
 
 
