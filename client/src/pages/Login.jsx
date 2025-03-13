@@ -13,7 +13,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
       
       
       {/* Main Content */}
