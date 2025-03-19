@@ -1,209 +1,134 @@
 import { useState } from 'react';
 
-const Discussion = () => {
-  const [comments, setComments] = useState([
+const Discussions = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("Trending");
+  
+  // Sample discussion data
+  const discussions = [
     {
       id: 1,
-      name: "Sparsa",
-      date: "February 25, 2025",
-      text: "The Data Structures course was incredibly helpful. The visualization tools made complex concepts much easier to understand.",
-      replies: []
+      title: "[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick's Day Code Challenge! ☘️",
+      tags: ["luckycode", "sololearn"],
+      votes: 30,
+      answers: 20,
+      date: "11th Mar 2025, 11:01 AM",
+      author: "Nate",
+      isOfficial: true
     },
     {
       id: 2,
-      name: "Hari Prasad",
-      date: "February 24, 2025",
-      text: "I appreciate how the algorithm analysis section breaks down time complexity. It has made a huge difference in my coding interviews!",
-      replies: [
-        {
-          id: 21,
-          name: "Rita",
-          date: "February 24, 2025",
-          text: "Totally agree! The Big O notation explanations are the clearest I have found anywhere."
-        }
-      ]
+      title: "[OFFICIAL] 💝 Cupid's Code Picks – Valentine's Code Challenge 2025 Results",
+      tags: ["codechallenge", "codewithlove", "sololearn", "valentinesday"],
+      votes: 22,
+      answers: 33,
+      date: "24th Feb 2025, 12:17 PM",
+      author: "Nate",
+      isOfficial: true
     }
-  ]);
-  
-  const [newComment, setNewComment] = useState("");
-  const [userName, setUserName] = useState("");
-  const [replyingTo, setReplyingTo] = useState(null);
-  const [replyText, setReplyText] = useState("");
-  const [viewingReplies, setViewingReplies] = useState({});
+  ];
 
-  const handleCommentSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    if (!newComment.trim() || !userName.trim()) return;
-    
-    const newCommentObj = {
-      id: comments.length + 1,
-      name: userName,
-      date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
-      text: newComment,
-      replies: []
-    };
-    
-    setComments([...comments, newCommentObj]);
-    setNewComment("");
-  };
-
-  const handleReplySubmit = (e, commentId) => {
-    e.preventDefault();
-    if (!replyText.trim() || !userName.trim()) return;
-    
-    const updatedComments = comments.map(comment => {
-      if (comment.id === commentId) {
-        return {
-          ...comment,
-          replies: [
-            ...comment.replies,
-            {
-              id: Date.now(),
-              name: userName,
-              date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
-              text: replyText
-            }
-          ]
-        };
-      }
-      return comment;
-    });
-    
-    setComments(updatedComments);
-    setReplyingTo(null);
-    setReplyText("");
-    setViewingReplies({...viewingReplies, [commentId]: true});
-  };
-
-  const toggleViewReplies = (commentId) => {
-    setViewingReplies({
-      ...viewingReplies,
-      [commentId]: !viewingReplies[commentId]
-    });
+    // Search functionality would be implemented here
+    console.log("Searching for:", searchQuery);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-25">
-      <div className='max-w-4xl mx-auto'>
-        <h2 className="text-3xl font-bold text-gray-700 mb-8 text-center">Community Discussion</h2>
-        
-        {/* Comment form */}
-        <form onSubmit={handleCommentSubmit} className="mb-10">
-          <div className="mb-4">
+    <div className="container mx-auto px-4 py-6 max-w-5xl mt-20">
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">Q&A Discussions</h1>
+      
+      {/* Search and filter row */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex-grow">
+          <form onSubmit={handleSearch} className="flex w-full">
             <input
               type="text"
-              placeholder="Your name"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              required
+              placeholder="Search..."
+              className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-          </div>
-          <div className="mb-4">
-            <textarea
-              placeholder="Share your thoughts or questions..."
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 min-h-32"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg transition-transform hover:scale-105"
-          >
-            Post Comment
-          </button>
-        </form>
+            <button 
+              type="submit"
+              className="bg-blue-100 text-blue-500 font-medium px-6 py-2 rounded-r-md hover:bg-blue-200 transition-colors"
+            >
+              Search
+            </button>
+          </form>
+        </div>
         
-        {/* Comments list */}
-        <div className="space-y-6">
-          {comments.map(comment => (
-            <div key={comment.id} className="border-b border-gray-200 pb-6 last:border-b-0">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                  {comment.name.charAt(0)}
+        <div className="flex justify-between">
+          <div className="w-64">
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 appearance-none bg-white"
+              style={{ backgroundImage: "url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23333%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M6 9l6 6 6-6%22/></svg>')", backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center" }}
+            >
+              <option value="Trending">Trending</option>
+              <option value="Newest">Newest</option>
+              <option value="MostVoted">Most Voted</option>
+              <option value="MostAnswered">Most Answered</option>
+            </select>
+          </div>
+          
+          <button  className="bg-blue-500 text-white font-medium px-6 py-2 rounded-md hover:bg-blue-600 transition-colors md:ml-4">
+            
+            <a href="/askquestion">Ask a question</a>
+          </button>
+        </div>
+      </div>
+      
+      {/* Discussions list */}
+      <div className="space-y-4">
+        {discussions.map(discussion => (
+          <div key={discussion.id} className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-4">
+              <h3 className="text-lg font-medium text-gray-800 mb-2">
+                {discussion.title}
+              </h3>
+              
+              <div className="flex flex-wrap gap-2 mb-3">
+                {discussion.tags.map(tag => (
+                  <span key={tag} className="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded-md">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex items-center justify-between text-sm text-gray-600">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                    </svg>
+                    <span>{discussion.votes} Votes</span>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <span>{discussion.answers} Answers</span>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="font-semibold text-gray-800">{comment.name}</h3>
-                    <span className="text-sm text-gray-500">{comment.date}</span>
-                  </div>
-                  <p className="text-gray-700 mb-3">{comment.text}</p>
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-                      className="text-sm font-medium text-purple-600 hover:text-purple-800"
-                    >
-                      Reply
-                    </button>
-                    {comment.replies.length > 0 && (
-                      <button
-                        onClick={() => toggleViewReplies(comment.id)}
-                        className={`text-sm font-medium ${viewingReplies[comment.id] ? 'text-green-700 hover:text-green-900' : 'text-green-500 hover:text-green-700'}`}
-                      >
-                        {viewingReplies[comment.id] ? `Hide Replies (${comment.replies.length})` : `View Replies (${comment.replies.length})`}
-                      </button>
-                    )}
-                  </div>
-                  
-                  {/* Reply form */}
-                  {replyingTo === comment.id && (
-                    <form onSubmit={(e) => handleReplySubmit(e, comment.id)} className="mt-4 pl-4 border-l-2 border-purple-200">
-                      <div className="mb-3">
-                        <textarea
-                          placeholder="Write your reply..."
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
-                          value={replyText}
-                          onChange={(e) => setReplyText(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="flex gap-2">
-                        <button
-                          type="submit"
-                          className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium rounded-lg"
-                        >
-                          Post Reply
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setReplyingTo(null)}
-                          className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  )}
-                  
-                  {/* Replies */}
-                  {comment.replies.length > 0 && viewingReplies[comment.id] && (
-                    <div className="mt-4 pl-4 border-l-2 border-gray-200 space-y-4">
-                      {comment.replies.map(reply => (
-                        <div key={reply.id} className="flex items-start gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xs">
-                            {reply.name.charAt(0)}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex justify-between items-center mb-1">
-                              <h4 className="font-semibold text-gray-800 text-sm">{reply.name}</h4>
-                              <span className="text-xs text-gray-500">{reply.date}</span>
-                            </div>
-                            <p className="text-gray-700 text-sm">{reply.text}</p>
-                          </div>
-                        </div>
-                      ))}
+                
+                <div className="flex items-center space-x-2">
+                  <span>{discussion.date}</span>
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600">
+                      {discussion.author.charAt(0)}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default Discussion;
+export default Discussions;
