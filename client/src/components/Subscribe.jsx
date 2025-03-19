@@ -1,24 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { auth } from "../components/firebase";
+import { useNavigate } from 'react-router-dom';
 
 const Subscribe = () => {
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    if (!email) return setMessage("Please enter a valid email");
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        navigate('/login');
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
+
+  const handleSubscribe = async () => {
+    if (!user?.email) {
+      setMessage("Please log in to subscribe");
+      return;
+    }
 
     setLoading(true);
     setMessage("");
 
     try {
-      const response = await axios.post("https://learnce.onrender.com/api/subscribers/subscribe", { email });
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      };
+
+      const payload = {
+        email: user.email
+      };
+
+      console.log('Sending payload:', payload); // Debug log
+
+      const response = await axios.post(
+        "https://learnce.onrender.com/api/subscribers/subscribe",
+        payload,
+        config
+      );
+
       setMessage(response.data.message);
-      setEmail("");
     } catch (error) {
-      setMessage(error.response?.data?.error || "Something went wrong");
+      
+      if (error.response) {
+        setMessage(`${error.response.data.message || 'Bad Request'}`);
+      } else if (error.request) {
+        
+        setMessage("Network error: No response from server");
+      } else {
+        setMessage("Error: " + error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -30,23 +72,15 @@ const Subscribe = () => {
         <h2 className="text-3xl font-bold mb-4 text-gray-700">Stay Updated</h2>
         <p className="text-gray-500 mb-8">Subscribe to our newsletter for the latest resources and feature updates</p>
 
-        <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex overflow-hidden">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full sm:flex-grow px-4 py-3 rounded-l-full border border-purple-500 focus:outline-none text-gray-600"
-            required
-          />
+        <div className="max-w-md mx-auto">
           <button
-            type="submit"
-            className="bg-gradient-to-tl from-blue-500 to-purple-500 text-white px-6 py-3 rounded-r-full hover:bg-blue-700 transition"
-            disabled={loading}
+            onClick={handleSubscribe}
+            className="bg-gradient-to-tl from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition"
+            disabled={loading || !user}
           >
             {loading ? "Subscribing..." : "Subscribe"}
           </button>
-        </form>
+        </div>
 
         {message && <p className="mt-4 text-gray-600">{message}</p>}
       </div>

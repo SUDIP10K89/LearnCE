@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const SemesterPage = () => {
+  
   const navigate = useNavigate();
   const semesters = Array.from({ length: 8 }, (_, i) => i + 1);
 

@@ -9,6 +9,7 @@ import SlidesNotes from "./pages/SlidesNotes";
 import Discussion from "./pages/Discussion";
 import Login from "./pages/Login";
 import InstallButton from "./components/InstallButton";
+import MyProfile from "./pages/MyProfile";
 
 
 const App = () => {
@@ -25,6 +26,8 @@ const App = () => {
           <Route path="/semesters/:semId/subjects/:subjectId/practice" element={<PracticeBooks />} />
           <Route path="/semesters/:semId/subjects/:subjectId/notes" element={<SlidesNotes />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<MyProfile />} />
+
         </Routes>
     </div>
   );
