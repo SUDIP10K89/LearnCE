@@ -1,132 +1,159 @@
 import { useState } from 'react';
+import { ArrowUp, MessageCircle, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Discussions = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState("Trending");
-  
-  // Sample discussion data
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState('Trending');
+
   const discussions = [
     {
       id: 1,
-      title: "[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick's Day Code Challenge! ☘️",
-      tags: ["luckycode", "sololearn"],
+      title: '[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick\'s Day Code Challenge! ☘️',
+      tags: ['luckycode', 'sololearn'],
       votes: 30,
       answers: 20,
-      date: "11th Mar 2025, 11:01 AM",
-      author: "Nate",
-      isOfficial: true
+      date: '11th Mar 2025, 11:01 AM',
+      author: 'Nate',
+      isOfficial: true,
     },
     {
       id: 2,
-      title: "[OFFICIAL] 💝 Cupid's Code Picks – Valentine's Code Challenge 2025 Results",
-      tags: ["codechallenge", "codewithlove", "sololearn", "valentinesday"],
+      title: '[OFFICIAL] 💝 Cupid\'s Code Picks – Valentine\'s Code Challenge 2025 Results',
+      tags: ['codechallenge', 'codewithlove', 'sololearn', 'valentinesday'],
       votes: 22,
       answers: 33,
-      date: "24th Feb 2025, 12:17 PM",
-      author: "Nate",
-      isOfficial: true
-    }
+      date: '24th Feb 2025, 12:17 PM',
+      author: 'Nate',
+      isOfficial: true,
+    },
   ];
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Search functionality would be implemented here
-    console.log("Searching for:", searchQuery);
+    console.log('Searching for:', searchQuery);
+  };
+
+  // Animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-5xl mt-20">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Q&A Discussions</h1>
-      
+    <div className="container mx-auto px-4 py-6 max-w-5xl mt-4 md:mt-20">
+      <motion.h1 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-xl md:text-2xl font-bold text-gray-800 mb-6"
+      >
+        Q&A Discussions
+      </motion.h1>
+
       {/* Search and filter row */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="flex-grow">
-          <form onSubmit={handleSearch} className="flex w-full">
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="w-full">
+          <form onSubmit={handleSearch} className="flex w-full max-w-2xl">
             <input
               type="text"
-              placeholder="Search..."
-              className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+              placeholder="Search discussions..."
+              className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search discussions"
             />
-            <button 
+            <button
               type="submit"
-              className="bg-blue-100 text-blue-500 font-medium px-6 py-2 rounded-r-md hover:bg-blue-200 transition-colors"
+              className="bg-blue-100 text-blue-500 font-medium px-4 md:px-6 py-2 rounded-r-md hover:bg-blue-200 transition-colors"
+              aria-label="Submit search"
             >
               Search
             </button>
           </form>
         </div>
-        
-        <div className="flex justify-between">
-          <div className="w-64">
+
+        <div className="flex flex-col sm:flex-row justify-between gap-4">
+          <div className="relative w-full sm:w-64">
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 appearance-none bg-white"
-              style={{ backgroundImage: "url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23333%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M6 9l6 6 6-6%22/></svg>')", backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center" }}
+              className="w-full p-2 pr-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none bg-white"
+              aria-label="Filter discussions"
             >
               <option value="Trending">Trending</option>
               <option value="Newest">Newest</option>
               <option value="MostVoted">Most Voted</option>
               <option value="MostAnswered">Most Answered</option>
             </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none" />
           </div>
-          
-          <button  className="bg-blue-500 text-white font-medium px-6 py-2 rounded-md hover:bg-blue-600 transition-colors md:ml-4">
-            
-            <a href="/askquestion">Ask a question</a>
-          </button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-blue-500 text-white font-medium px-4 md:px-6 py-2 rounded-md hover:bg-blue-600 transition-colors w-full sm:w-auto"
+          >
+            <Link to="/askquestion" className="block w-full h-full">
+              Ask a question
+            </Link>
+          </motion.button>
         </div>
       </div>
-      
+
       {/* Discussions list */}
-      <div className="space-y-4">
-        {discussions.map(discussion => (
-          <div key={discussion.id} className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="p-4">
-              <h3 className="text-lg font-medium text-gray-800 mb-2">
-                {discussion.title}
-              </h3>
-              
-              <div className="flex flex-wrap gap-2 mb-3">
-                {discussion.tags.map(tag => (
-                  <span key={tag} className="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded-md">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                    </svg>
-                    <span>{discussion.votes} Votes</span>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                    <span>{discussion.answers} Answers</span>
-                  </div>
+      <AnimatePresence>
+        <div className="space-y-4">
+          {discussions.map((discussion) => (
+            <motion.div
+              key={discussion.id}
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              transition={{ duration: 0.3 }}
+              className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="p-4">
+                <h3 className="text-base md:text-lg font-medium text-gray-800 mb-2 line-clamp-2">
+                  {discussion.title}
+                </h3>
+
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {discussion.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded-md"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                
-                <div className="flex items-center space-x-2">
-                  <span>{discussion.date}</span>
-                  <div className="flex items-center">
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-sm text-gray-600 gap-2">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center">
+                      <ArrowUp className="h-4 w-4 mr-1" />
+                      <span>{discussion.votes} Votes</span>
+                    </div>
+                    <div className="flex items-center">
+                      <MessageCircle className="h-4 w-4 mr-1" />
+                      <span>{discussion.answers} Answers</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs md:text-sm">{discussion.date}</span>
                     <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600">
                       {discussion.author.charAt(0)}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </div>
+      </AnimatePresence>
     </div>
   );
 };
