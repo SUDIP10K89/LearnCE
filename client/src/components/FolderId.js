@@ -60,7 +60,7 @@ export const FolderId = [
           categories: {
             questions: "sdhshdsdhjjkds",
             books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            notes: "jhgadjkhskjhd",
           },
         },
         {
