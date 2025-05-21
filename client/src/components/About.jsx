@@ -3,21 +3,20 @@ import ResourceList from "./ResourceList";
 
 export default function About() {
   return (
-    <section id="about" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center py-12 px-6">
+    <section id="about" className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center justify-center py-12 px-6">
       <motion.div
         className="text-center max-w-3xl"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-4xl font-extrabold text-gray-700 mb-4">About Us</h1>
-        <p className="text-lg text-gray-600 leading-relaxed mb-6">
-          Welcome to <span className="text-blue-500 font-bold">LEARN CE</span> !, your one-stop solution for educational resources tailored for Computer Engineering students of Tribhuvan University (TU).
-
-We understand the unique challenges and aspirations of students pursuing Computer Engineering, and our mission is to simplify your academic journey by providing organized and easily accessible resources for every semester and subject in the TU curriculum.
+        <h1 className="text-4xl font-extrabold text-gray-100 mb-4">About Us</h1>
+        <p className="text-lg text-gray-300 leading-relaxed mb-6">
+          Welcome to <span className="text-cyan-400 font-bold">LEARN CE</span>!, your one-stop solution for educational resources tailored for Computer Engineering students of Tribhuvan University (TU).
+          We understand the unique challenges and aspirations of students pursuing Computer Engineering, and our mission is to simplify your academic journey by providing organized and easily accessible resources for every semester and subject in the TU curriculum.
         </p>
-        <p className="text-lg text-gray-600 leading-relaxed">
-        Whether you're a freshman starting your journey or a senior preparing for your board, we are here to support you every step of the way.
+        <p className="text-lg text-gray-300 leading-relaxed">
+          Whether you're a freshman starting your journey or a senior preparing for your board, we are here to support you every step of the way.
         </p>
       </motion.div>
 
@@ -28,28 +27,28 @@ We understand the unique challenges and aspirations of students pursuing Compute
         transition={{ duration: 1 }}
       >
         <motion.div
-          className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
-          whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
+          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 shadow-2xl"
+          whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 255, 255, 0.2)" }}
         >
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">Our Mission</h3>
-          <p className="text-gray-600 mb-3">Empower students with free, high-quality computer engineering resources for academic and practical learning.</p>
+          <h3 className="text-xl font-semibold text-gray-100 mb-2">Our Mission</h3>
+          <p className="text-gray-300 mb-3">Empower students with free, high-quality computer engineering resources for academic and practical learning.</p>
         </motion.div>
         <motion.div
-          className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
-          whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
+          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 shadow-2xl"
+          whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 255, 255, 0.2)" }}
         >
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">Our Vision</h3>
-          <p className="text-gray-600 mb-3">Become the leading platform for accessible, organized, and up-to-date computer engineering knowledge.</p>
+          <h3 className="text-xl font-semibold text-gray-100 mb-2">Our Vision</h3>
+          <p className="text-gray-300 mb-3">Become the leading platform for accessible, organized, and up-to-date computer engineering knowledge.</p>
         </motion.div>
         <motion.div
-          className="bg-white rounded-lg shadow-lg text-center p-3 shadow-2xl"
-          whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
+          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 shadow-2xl"
+          whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 255, 255, 0.2)" }}
         >
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">Our goal</h3>
-          <p className="text-gray-600 mb-3">
-Provide structured, up-to-date study materials, support hands-on learning, foster collaboration, and enable networking.</p>
+          <h3 className="text-xl font-semibold text-gray-100 mb-2">Our Goal</h3>
+          <p className="text-gray-300 mb-3">
+            Provide structured, up-to-date study materials, support hands-on learning, foster collaboration, and enable networking.
+          </p>
         </motion.div>
-        
       </motion.div>
     </section>
   );

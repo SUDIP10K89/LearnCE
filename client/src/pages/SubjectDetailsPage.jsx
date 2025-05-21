@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { subjects } from "./SubjectPage";
+import { FileText, Book, Notebook } from "lucide-react";
 
 const SubjectDetailsPage = () => {
   const navigate = useNavigate();
@@ -9,31 +10,31 @@ const SubjectDetailsPage = () => {
   const resources = [
     {
       title: "Old Question Papers",
-      icon: "📝",
+      icon: <FileText size={40} className="text-cyan-400" />,
       path: `/semesters/${semId}/subjects/${subjectId}/oldQ`,
       description: "Access previous year question papers",
     },
     {
       title: "Guide Books",
-      icon: "📚",
+      icon: <Book size={40} className="text-cyan-400" />,
       path: `/semesters/${semId}/subjects/${subjectId}/practice`,
       description: "Download study materials and exercises",
     },
     {
       title: "Study Notes",
-      icon: "📑",
+      icon: <Notebook size={40} className="text-cyan-400" />,
       path: `/semesters/${semId}/subjects/${subjectId}/notes`,
       description: "View lecture slides and study notes",
     },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-25">
-      <div className="bg-gradient-to-r from-blue-700 to-purple-700 text-white p-8 rounded-lg mb-8">
+    <div className="container mx-auto px-4 py-8 pt-16 bg-gradient-to-br from-gray-900 to-gray-800">
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 p-8 rounded-lg mb-8">
         <h1 className="text-3xl font-bold text-center">
           {subjectName}
         </h1>
-        <p className="text-center mt-2 text-blue-100">
+        <p className="text-center mt-2 text-gray-300">
           Semester {semId}
         </p>
       </div>
@@ -43,16 +44,16 @@ const SubjectDetailsPage = () => {
           <div
             key={resource.title}
             onClick={() => navigate(resource.path)}
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all 
+            className="bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all 
                      cursor-pointer transform hover:-translate-y-1 overflow-hidden"
           >
             <div className="h-60 p-6 flex flex-col justify-center items-center 
-                          bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+                          bg-gradient-to-br from-gray-800 to-gray-700 text-gray-100">
               <div className="text-4xl mb-4">{resource.icon}</div>
               <h2 className="text-xl font-semibold text-center mb-3">
                 {resource.title}
               </h2>
-              <p className="text-blue-100 text-center text-sm">
+              <p className="text-gray-300 text-center text-sm">
                 {resource.description}
               </p>
             </div>

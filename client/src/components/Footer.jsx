@@ -1,16 +1,16 @@
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-8">
+    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 py-8">
       <div className="container mx-auto px-4 text-center">
-        <p>&copy; 2024 Learn CE. All rights reserved.</p>
+        <p>© 2025 Learn CE. All rights reserved.</p>
         <div className="mt-4 space-x-4">
-          <a href="#" className="hover:text-blue-300">
+          <a href="#" className="hover:text-cyan-400 transition-colors">
             Privacy Policy
           </a>
-          <a href="#" className="hover:text-blue-300">
+          <a href="#" className="hover:text-cyan-400 transition-colors">
             Terms of Service
           </a>
-          <a href="#" className="hover:text-blue-300">
+          <a href="#" className="hover:text-cyan-400 transition-colors">
             Contact
           </a>
         </div>
