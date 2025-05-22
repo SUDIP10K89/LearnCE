@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import InstallButton from "./components/InstallButton";
 import MyProfile from "./pages/MyProfile";
 import AskQuestionForm from "./pages/AskQuestionForm";
+import SingleDiscussion from "./pages/SingleDiscussion"
 
 
 const App = () => {
@@ -19,17 +20,24 @@ const App = () => {
       <InstallButton/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/discussion" element={<Discussion />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<MyProfile />} />
+
+          {/* resources route */}
           <Route path="/semesters" element={<SemesterPage />} />
           <Route path="/semesters/:semId" element={<SubjectPage />} />
           <Route path="/semesters/:semId/subjects/:subjectId" element={<SubjectDetailsPage />} />
           <Route path="/semesters/:semId/subjects/:subjectId/oldQ" element={<OldQuestions />} />
           <Route path="/semesters/:semId/subjects/:subjectId/practice" element={<PracticeBooks />} />
           <Route path="/semesters/:semId/subjects/:subjectId/notes" element={<SlidesNotes />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<MyProfile />} />
-          <Route path="/askquestion" element={<AskQuestionForm />} />
           
+
+          {/* discussion */}
+          <Route path="/discussion" element={<Discussion />} />
+          <Route path="/askquestion" element={<AskQuestionForm />} />
+          <Route path="/singlequestion" element={<SingleDiscussion />} />
+          
+
         </Routes>
     </div>
   );
