@@ -14,7 +14,7 @@ const SemesterPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div className="container min-w-full mx-auto px-4 py-8 bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 p-8 rounded-lg mb-8">
         <h1 className="text-3xl font-bold text-center">
           Computer Engineering

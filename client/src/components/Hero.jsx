@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { BookOpen, MessageCircle } from "lucide-react";
 
 const Hero = () => {
     const navigate = useNavigate();
@@ -25,18 +26,21 @@ const Hero = () => {
                                 className="px-8 py-4 bg-gray-800 text-cyan-400 rounded-lg 
                                          hover:bg-gray-700 hover:text-cyan-300 transition-all duration-300 
                                          shadow-lg hover:shadow-xl transform hover:-translate-y-1
-                                         font-semibold text-lg"
+                                         font-semibold text-lg flex items-center justify-center gap-2"
                             >
+                                <BookOpen className="h-5 w-5 text-cyan-400" />
                                 View Resources
                             </button>
                             
                             <button
                                 onClick={() => navigate("/discussion")}
-                                className="px-8 py-4 bg-transparent border-2 border-gray-300 text-gray-100 
-                                         rounded-lg hover:bg-gray-700/50 hover:text-cyan-300 transition-all duration-300
-                                         font-semibold text-lg"
+                                className="px-8 py-4 bg-gray-800 border-2 border-gray-700 text-cyan-400 
+                                         rounded-lg hover:bg-gray-700 hover:text-cyan-300 transition-all duration-300 
+                                         shadow-lg hover:shadow-xl transform hover:-translate-y-1
+                                         font-semibold text-lg flex items-center justify-center gap-2"
                             >
-                                Discussion
+                                <MessageCircle className="h-5 w-5 text-cyan-400" />
+                                Discussions
                             </button>
                         </div>
                     </div>

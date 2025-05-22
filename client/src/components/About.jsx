@@ -1,9 +1,13 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { BookOpen, MessageCircle } from "lucide-react";
 import ResourceList from "./ResourceList";
 
 export default function About() {
+  const navigate = useNavigate();
+
   return (
-    <section id="about" className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center justify-center py-12 px-6">
+    <section id="about" className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center justify-center pt-16 py-12 px-6">
       <motion.div
         className="text-center max-w-3xl"
         initial={{ opacity: 0, y: 50 }}
@@ -49,6 +53,39 @@ export default function About() {
             Provide structured, up-to-date study materials, support hands-on learning, foster collaboration, and enable networking.
           </p>
         </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <motion.button
+          onClick={() => navigate("/semesters")}
+          className="px-8 py-4 bg-gray-800 text-cyan-400 rounded-lg 
+                     hover:bg-gray-700 hover:text-cyan-300 transition-all duration-300 
+                     shadow-lg hover:shadow-xl transform hover:-translate-y-1
+                     font-semibold text-lg flex items-center justify-center gap-2"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <BookOpen className="h-5 w-5 text-cyan-400" />
+          View Resources
+        </motion.button>
+
+        <motion.button
+          onClick={() => navigate("/discussions")}
+          className="px-8 py-4 bg-gray-800 border-2 border-gray-700 text-cyan-400 
+                     rounded-lg hover:bg-gray-700 hover:text-cyan-300 transition-all duration-300 
+                     shadow-lg hover:shadow-xl transform hover:-translate-y-1
+                     font-semibold text-lg flex items-center justify-center gap-2"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <MessageCircle className="h-5 w-5 text-cyan-400" />
+          Discussions
+        </motion.button>
       </motion.div>
     </section>
   );

@@ -58,7 +58,7 @@ const Notes = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 pt-16 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div className="container min-w-full h-[100vh] mx-auto px-4 py-8 pt-16 bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 p-8 rounded-lg mb-8">
         <h1 className="text-3xl font-bold text-center">{subjectName}</h1>
         <p className="text-center mt-2 text-gray-300">Semester {semId}</p>
@@ -103,7 +103,7 @@ const Notes = () => {
                       <>
                         <Download className="mr-2" size={16} />
                         <span className="hidden md:inline">Download</span>
-                        <span className="md:hidden"><Download size={16} /></span>
+                        <span className="md:hidden hidden"><Download size={16} /></span>
                       </>
                     )}
                   </button>
@@ -116,7 +116,7 @@ const Notes = () => {
                   >
                     <Eye className="mr-2" size={16} />
                     <span className="hidden md:inline">Preview</span>
-                    <span className="md:hidden"><Eye size={16} /></span>
+                    <span className="md:hidden hidden"><Eye size={16} /></span>
                   </a>
                 </div>
               </div>
