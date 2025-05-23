@@ -32,7 +32,7 @@ const Hero = () => {
                                 View Resources
                             </button>
                             
-                            <button
+                            {/* <button
                                 onClick={() => navigate("/discussion")}
                                 className="px-8 py-4 bg-gray-800 border-2 border-gray-700 text-cyan-400 
                                          rounded-lg hover:bg-gray-700 hover:text-cyan-300 transition-all duration-300 
@@ -41,7 +41,7 @@ const Hero = () => {
                             >
                                 <MessageCircle className="h-5 w-5 text-cyan-400" />
                                 Discussions
-                            </button>
+                            </button> */}
                         </div>
                     </div>
 

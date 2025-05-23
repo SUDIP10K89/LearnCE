@@ -13,7 +13,7 @@ const Discussions = () => {
 
 const getDiscussions = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/posts');
+    const response = await axios.get(import.meta.env.VITE_BACKEND_URL +'/api/posts');
  
 
     console.log(response.data);
