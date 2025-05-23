@@ -2,53 +2,47 @@ import { useState } from 'react';
 import { ArrowUp, MessageCircle, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const Discussions = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState('Trending');
 
-  const discussions = [
-    {
-      id: 1,
-      title: '[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick\'s Day Code Challenge! ☘️',
-      tags: ['luckycode', 'sololearn'],
-      votes: 30,
-      answers: 20,
-      date: '11th Mar 2025, 11:01 AM',
-      author: 'Nate',
-      isOfficial: true,
-    },
-    {
-      id: 2,
-      title: '[OFFICIAL] 💝 Cupid\'s Code Picks – Valentine\'s Code Challenge 2025 Results',
-      tags: ['codechallenge', 'codewithlove', 'sololearn', 'valentinesday'],
-      votes: 22,
-      answers: 33,
-      date: '24th Feb 2025, 12:17 PM',
-      author: 'Nate',
-      isOfficial: true,
-    },
-    {
-      id: 1,
-      title: '[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick\'s Day Code Challenge! ☘️',
-      tags: ['luckycode', 'sololearn'],
-      votes: 30,
-      answers: 20,
-      date: '11th Mar 2025, 11:01 AM',
-      author: 'Nate',
-      isOfficial: true,
-    },
-    {
-      id: 1,
-      title: '[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick\'s Day Code Challenge! ☘️',
-      tags: ['luckycode', 'sololearn'],
-      votes: 31,
-      answers: 20,
-      date: '11th Mar 2025, 11:01 AM',
-      author: 'Nate',
-      isOfficial: true,
-    },
-  ];
+  const [discussions, setDiscussions] = useState([]);
+
+const getDiscussions = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/posts');
+ 
+
+    console.log(response.data);
+    setDiscussions(response.data.data.posts);
+
+    console.log(response.data);
+  } catch (error) {
+    console.error('Error fetching discussions:', error);
+  }
+}
+
+useEffect(() => {
+  getDiscussions();
+}, []);
+
+  // const discussions = [
+  //   {
+  //     id: 1,
+  //     title: '[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick\'s Day Code Challenge! ☘️',
+  //     tags: ['luckycode', 'sololearn'],
+  //     votes: 30,
+  //     answers: 20,
+  //     date: '11th Mar 2025, 11:01 AM',
+  //     author: 'Nate',
+  //     isOfficial: true,
+  //   }
+  // ];
+
+
 
   const handleSearch = (e) => {
     e.preventDefault();

@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { X, Tag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { auth } from "../components/firebase";
+import { useEffect } from 'react';
+
 
 const AskQuestionForm = () => {
   const [question, setQuestion] = useState('');
   const [description, setDescription] = useState('');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState([]);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleAddTag = (e) => {
     if (e.key === 'Enter' && tagInput.trim() !== '') {
@@ -23,9 +29,30 @@ const AskQuestionForm = () => {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+      const getUser = auth.onAuthStateChanged((currentUser) => {
+        setUser(currentUser);
+      });
+      return () => getUser();
+    }, []);
+
+  const handleSubmit =async (e) => {
     e.preventDefault();
     console.log({ question, description, tags });
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/posts', {
+        title: question,
+        content: description,
+        author: user.displayName,
+        tags
+      });
+      if(response.data.status === 'success') {
+        navigate('/discussion');
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
   };
 
   // Animation variants

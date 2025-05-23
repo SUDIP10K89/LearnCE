@@ -75,7 +75,7 @@ export default function About() {
         </motion.button>
 
         <motion.button
-          onClick={() => navigate("/discussions")}
+          onClick={() => navigate("/discussion")}
           className="px-8 py-4 bg-gray-800 border-2 border-gray-700 text-cyan-400 
                      rounded-lg hover:bg-gray-700 hover:text-cyan-300 transition-all duration-300 
                      shadow-lg hover:shadow-xl transform hover:-translate-y-1
