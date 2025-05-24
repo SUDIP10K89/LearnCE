@@ -1,59 +1,65 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowUp, MessageCircle, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
+import debounce from 'lodash.debounce';
 
 const Discussions = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState('Trending');
-
+  const [filteredItems, setFilteredItems] = useState([]);
   const [discussions, setDiscussions] = useState([]);
 
-const getDiscussions = async () => {
-  try {
-    const response = await axios.get(import.meta.env.VITE_BACKEND_URL +'/api/posts');
- 
+  // Fetch discussions
+  useEffect(() => {
+    const getDiscussions = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/posts`
+        );
+        setDiscussions(response.data.data.posts);
+      } catch (error) {
+        console.error('Error fetching discussions:', error);
+      }
+    };
 
-    console.log(response.data);
-    setDiscussions(response.data.data.posts);
+    getDiscussions();
+  }, []);
 
-    console.log(response.data);
-  } catch (error) {
-    console.error('Error fetching discussions:', error);
-  }
-}
+  // Debounced search
+  useEffect(() => {
+    const debouncedSearch = debounce(() => {
+      const query = searchQuery.trim().toLowerCase();
 
-useEffect(() => {
-  getDiscussions();
-}, []);
+      if (query === '') {
+        setFilteredItems([]);
+        return;
+      }
 
-  // const discussions = [
-  //   {
-  //     id: 1,
-  //     title: '[FINISHED/OFFICIAL] 🎯 ☘️ St. Patrick\'s Day Code Challenge! ☘️',
-  //     tags: ['luckycode', 'sololearn'],
-  //     votes: 30,
-  //     answers: 20,
-  //     date: '11th Mar 2025, 11:01 AM',
-  //     author: 'Nate',
-  //     isOfficial: true,
-  //   }
-  // ];
+      const results = discussions.filter((item) =>
+        item.title.toLowerCase().includes(query)
+      );
 
+      setFilteredItems(results);
+    }, 300);
 
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Searching for:', searchQuery);
-  };
+    debouncedSearch();
+    return () => debouncedSearch.cancel();
+  }, [searchQuery, discussions]);
 
   // Animation variants
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  const displayItems =
+    searchQuery.trim() !== '' && filteredItems.length > 0
+      ? filteredItems
+      : searchQuery.trim() !== '' && filteredItems.length === 0
+      ? [] // Show no results
+      : discussions;
 
   return (
     <div className="container min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
@@ -68,7 +74,7 @@ useEffect(() => {
       {/* Search and filter row */}
       <div className="flex flex-col gap-4 mb-6">
         <div className="w-full">
-          <form onSubmit={handleSearch} className="flex w-full max-w-2xl">
+          <form onSubmit={(e) => e.preventDefault()} className="flex w-full max-w-2xl">
             <input
               type="text"
               placeholder="Search discussions..."
@@ -115,10 +121,15 @@ useEffect(() => {
         </div>
       </div>
 
+      {/* Show "No results" message */}
+      {searchQuery.trim() !== '' && filteredItems.length === 0 && (
+        <p className="text-gray-400 mb-4">No discussions found for "{searchQuery}".</p>
+      )}
+
       {/* Discussions list */}
       <AnimatePresence>
         <div className="space-y-4">
-          {discussions.map((discussion) => (
+          {displayItems.map((discussion) => (
             <motion.div
               key={discussion.id}
               variants={cardVariants}
