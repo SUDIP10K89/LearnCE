@@ -58,49 +58,49 @@ export const FolderId = [
         {
           name: "Engineering Mathematics II",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhgadjkhskjhd",
+            questions: "1ylJXXqOeB8qIUeSBnCEpmVjbcExx7zQq",
+            books: "1yfJGN01S8564BIohr-EzShoUQe7gEiXW",
+            notes: "1ygNgrDThTgHHsHDIM3qoi6-VF_ObwcFs",
           },
         },
         {
           name: "Object Oriented Programming",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            questions: "1ypGHnRbkhZHDbPhvv3FepbnuPjV-4dLm",
+            books: "1ylt0NfBc_eDYRAPe3iYFSLcwk-VK3xs-",
+            notes: "1yoBRBSHGpGVj6XQVXu2Zw5dSR-bJ2h4n",
           },
         },
         {
           name: "Digital Logic",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            questions: "1y3MoF8rEGotL8pnlYI6yHnn8pjUwL6IP",
+            books: "1y6WpjB-j4tws_nIOOKUj_zZafyNo3iCh",
+            notes: "1y79FZJ9LQHg10SjurphfB-dGokKdI_h4",
           },
         },
         {
           name: "Electronic Devices and Circuits",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            questions: "1ybhTnPE6AwMMD4FbVWmYEH5tWMytX5Kn",
+            books: "1yZYwnb9ww_oxrjFo-9tMV46tReBqz9fe",
+            notes: "1yaWYo2jtVxhg3p9mrc_x8npC1omRZlDF",
           },
         },
         {
           name: "Engineering Chemistry",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            questions: "1yKOdUG-TzW3mnUmZ1IlwuI6MUN8yM7n_",
+            books: "1y7DGYp0087vrZIpK8D6mSqRdRiKEENja ",
+            notes: "1yEMdU44u_RXDU__3Bt_nnZkX37yXxE8b",
           },
         },
         {
           name: "Electrical Circuits and Machines",
           categories: {
-            questions: "sdhshdsdhjjkds",
-            books: "jhasdjkahsdhjka",
-            notes: "jhghadjkhskjhd",
+            questions: "1yT2hBRk4ZZPZpepEochRYutxRVt7zYt1",
+            books: "1ySPZ30JCgoqISlsWsWbhExK-kcWP3hlw",
+            notes: "1yT0GkSHZu520SdqvOuRHq1HtohSPn-cy",
           },
         },
       ],
