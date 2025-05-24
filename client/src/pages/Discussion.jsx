@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowUp, MessageCircle, ChevronDown } from 'lucide-react';
+import { ArrowUp, MessageCircle, ChevronDown, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -68,7 +68,7 @@ const Discussions = () => {
   }
 
   return (
-    <div className="container md:px-50  min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
+    <div className="container md:px-40  min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -94,7 +94,7 @@ const Discussions = () => {
               className="bg-gray-800 text-cyan-400 font-medium px-4 md:px-6 py-2 rounded-r-md hover:bg-gray-700 transition-colors"
               aria-label="Submit search"
             >
-              Search
+              <Search className="h-4 w-4" />
             </button>
           </form>
         </div>

@@ -61,7 +61,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="md:px-40 bg-gradient-to-r from-gray-900 to-gray-800 shadow-lg fixed top-0 left-0 w-full z-50">
+    <nav className="md:px-35 bg-gradient-to-r from-gray-900 to-gray-800 shadow-lg fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center p-4">
         <Link to="/" className="flex items-center space-x-2 group">
           <div className="text-2xl font-extrabold text-gray-100 tracking-wide group-hover:text-cyan-400 transition-colors">

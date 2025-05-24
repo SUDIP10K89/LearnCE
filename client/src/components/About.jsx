@@ -31,21 +31,21 @@ export default function About() {
         transition={{ duration: 1 }}
       >
         <motion.div
-          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 shadow-2xl"
+          className="bg-gray-800 rounded-lg shadow-lg text-center p-3"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 255, 255, 0.2)" }}
         >
           <h3 className="text-xl font-semibold text-gray-100 mb-2">Our Mission</h3>
           <p className="text-gray-300 mb-3">Empower students with free, high-quality computer engineering resources for academic and practical learning.</p>
         </motion.div>
         <motion.div
-          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 shadow-2xl"
+          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 "
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 255, 255, 0.2)" }}
         >
           <h3 className="text-xl font-semibold text-gray-100 mb-2">Our Vision</h3>
           <p className="text-gray-300 mb-3">Become the leading platform for accessible, organized, and up-to-date computer engineering knowledge.</p>
         </motion.div>
         <motion.div
-          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 shadow-2xl"
+          className="bg-gray-800 rounded-lg shadow-lg text-center p-3 "
           whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 255, 255, 0.2)" }}
         >
           <h3 className="text-xl font-semibold text-gray-100 mb-2">Our Goal</h3>
