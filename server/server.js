@@ -15,6 +15,10 @@ mongoDB();
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/posts", postRoutes);
 
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
