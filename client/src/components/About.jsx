@@ -7,7 +7,7 @@ export default function About() {
   const navigate = useNavigate();
 
   return (
-    <section id="about" className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center justify-center pt-16 py-12 px-6">
+    <section id="about" className="md:px-40 bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center justify-center pt-16 py-12 px-6">
       <motion.div
         className="text-center max-w-3xl"
         initial={{ opacity: 0, y: 50 }}

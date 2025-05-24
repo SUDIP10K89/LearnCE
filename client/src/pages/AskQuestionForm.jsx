@@ -76,7 +76,7 @@ const AskQuestionForm = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="container min-w-full h-[100vh] overflow-auto mx-auto max-w-4xl px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen"
+      className="container md:px-40 min-w-full h-[100vh] overflow-auto mx-auto max-w-4xl px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen"
     >
       <motion.h1 
         variants={itemVariants}

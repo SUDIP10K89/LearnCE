@@ -1,5 +1,5 @@
 const express = require('express');
-const {createPost,getAllPosts} = require('../Controllers/postController'); 
+const {createPost,getAllPosts,getSinglePost} = require('../Controllers/postController'); 
 
 const router = express.Router();
 
@@ -8,5 +8,8 @@ router.post('/', createPost);
 
 // Route to get all posts
 router.get('/', getAllPosts);
+
+// Route to get a single post
+router.get('/:id', getSinglePost);
 
 module.exports = router;

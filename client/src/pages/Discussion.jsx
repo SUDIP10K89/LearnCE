@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowUp, MessageCircle, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import debounce from 'lodash.debounce';
 
@@ -10,6 +10,8 @@ const Discussions = () => {
   const [filter, setFilter] = useState('Trending');
   const [filteredItems, setFilteredItems] = useState([]);
   const [discussions, setDiscussions] = useState([]);
+
+  const navigate = useNavigate();
 
   // Fetch discussions
   useEffect(() => {
@@ -58,11 +60,15 @@ const Discussions = () => {
     searchQuery.trim() !== '' && filteredItems.length > 0
       ? filteredItems
       : searchQuery.trim() !== '' && filteredItems.length === 0
-      ? [] // Show no results
+      ? [] 
       : discussions;
 
+  const handleShowDiscussion = (id) => {
+    navigate(`/singlequestion/${id}`);
+  }
+
   return (
-    <div className="container min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
+    <div className="container md:px-50  min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -131,7 +137,8 @@ const Discussions = () => {
         <div className="space-y-4">
           {displayItems.map((discussion) => (
             <motion.div
-              key={discussion.id}
+              key={discussion._id}
+              onClick={() => {handleShowDiscussion(discussion._id)}}
               variants={cardVariants}
               initial="hidden"
               animate="visible"

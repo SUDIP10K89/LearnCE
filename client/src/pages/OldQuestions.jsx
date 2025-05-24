@@ -58,7 +58,7 @@ const OldQuestions = () => {
   };
 
   return (
-    <div className="container min-w-full h-[100vh] mx-auto px-4 py-8 pt-16 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div className="container md:px-40 min-w-full h-[100vh] mx-auto px-4 py-8 pt-16 bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100 p-8 rounded-lg mb-8">
         <h1 className="text-3xl font-bold text-center">{subjectName}</h1>
         <p className="text-center mt-2 text-gray-300">Semester {semId}</p>

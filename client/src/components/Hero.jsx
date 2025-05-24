@@ -5,7 +5,7 @@ const Hero = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-850 to-gray-800 overflow-hidden">
+        <div className="min-h-screen md:px-40 bg-gradient-to-br from-gray-900 via-gray-850 to-gray-800 overflow-hidden">
             <div className="container mx-auto px-4 py-12 md:py-20">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-12">
                     {/* Content Section */}

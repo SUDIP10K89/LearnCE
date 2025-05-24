@@ -8,7 +8,7 @@ import InstallButton from "../components/InstallButton";
 const Home = () => {
 
   return (
-    <div className="pt-16 bg-gray-100">
+    <div className="pt-16 bg-gray-100 ">
       <Hero/>
       
       {/* <SearchBar/> */}

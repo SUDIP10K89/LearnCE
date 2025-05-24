@@ -65,7 +65,7 @@ const Subscribe = () => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-gray-900 to-gray-800">
+    <section className="md:px-50 py-16 bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-4 text-gray-100">Stay Updated</h2>
         <p className="text-gray-300 mb-8">Subscribe to our newsletter for the latest resources and feature updates</p>

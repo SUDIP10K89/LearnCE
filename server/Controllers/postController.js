@@ -53,9 +53,35 @@ const getAllPosts = async (req, res) => {
         });
     }
 };
+
+//get single post
+const getSinglePost = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Post not found'
+            });
+        }
+        res.status(200).json({
+            status: 'success',
+            data: {
+                post
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error.message
+        });
+    }
+};
+
 //export
 module.exports = {
     createPost,
-    getAllPosts
+    getAllPosts,
+    getSinglePost
 };
 

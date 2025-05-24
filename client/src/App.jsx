@@ -35,8 +35,7 @@ const App = () => {
           {/* discussion */}
           <Route path="/discussion" element={<Discussion />} />
           <Route path="/askquestion" element={<AskQuestionForm />} />
-          <Route path="/singlequestion" element={<SingleDiscussion />} />
-          
+          <Route path="/singlequestion/:id" element={<SingleDiscussion />} />
 
         </Routes>
     </div>

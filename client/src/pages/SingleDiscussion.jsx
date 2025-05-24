@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   ChevronDown, 
   ThumbsUp, 
@@ -9,12 +9,36 @@ import {
   MessageCircle 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 
 const SingleDiscussion = () => {
+  const { id } = useParams();
   const [sortBy, setSortBy] = useState('Votes');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   const [answerText, setAnswerText] = useState('');
   const [charactersRemaining, setCharactersRemaining] = useState(2048);
+
+  const [post, setPost] = useState({});
+
+  console.log('Discussion ID:', id);
+
+  const getSingleDiscussion = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/posts/${id}`
+      );
+      console.log('Single Discussion Data:', response.data.data.post);
+      setPost(response.data.data.post);
+    } catch (error) {
+      console.error('Error fetching single discussion:', error);
+    }
+  };
+
+  useEffect(() => {
+    getSingleDiscussion();
+  }, [id]);
 
   const handleAnswerTextChange = (e) => {
     const text = e.target.value;
@@ -40,7 +64,7 @@ const SingleDiscussion = () => {
       id: 1,
       votes: 12,
       content: "just to make the ball roll:",
-      link: "https://sololearn.com/compiler-playground/WPFTPL5Wrl2/?ref=app",
+      link: "https://facebook.com",
       author: "Oma Falk",
       timestamp: "13th May 2025, 11:00 AM",
       avatar: "OF"
@@ -49,7 +73,7 @@ const SingleDiscussion = () => {
       id: 2,
       votes: 10,
       content: "",
-      link: "https://sololearn.com/compiler-playground/W0lAtluSRqBA/?ref=app",
+      link: "https://youtube.com",
       author: "Angel",
       timestamp: "13th May 2025, 1:22 PM",
       avatar: "A"
@@ -58,7 +82,7 @@ const SingleDiscussion = () => {
       id: 3,
       votes: 9,
       content: "",
-      link: "https://sololearn.com/compiler-playground/WFNnqLvvh9J3/?ref=app",
+      link: "https://instagram.com",
       author: "жнец",
       timestamp: "13th May 2025, 12:25 PM",
       avatar: "Ж"
@@ -67,7 +91,7 @@ const SingleDiscussion = () => {
       id: 4,
       votes: 7,
       content: "It is a kind a code that takes your survey and will tell about your personality... Read the comments of code for better results!!",
-      link: "https://sololearn.com/compiler-playground/c8z0BL29DkOb/?ref=app",
+      link: "https://x.com",
       author: "Aditi Shukla",
       timestamp: "13th May 2025, 2:53 PM",
       avatar: "AS"
@@ -82,8 +106,7 @@ const SingleDiscussion = () => {
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-gray-900 to-gray-800">
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto p-4">
-        {/* SoloLearn Header */}
+      <div className="max-w-4xl mx-auto mt-25 p-4">
         <motion.div
           variants={cardVariants}
           initial="hidden"
@@ -100,39 +123,17 @@ const SingleDiscussion = () => {
             <div className="flex items-center gap-2 mb-4">
               <Award className="w-5 h-5 text-cyan-400" />
               <h2 className="text-2xl font-bold text-gray-100">
-                [OFFICIAL] 🧘‍♀️ Coding Challenge: Code for Calm
+                [OFFICIAL] {post.title}
               </h2>
             </div>
             
             <p className="text-gray-300 mb-4">
-              Join us in honoring Mental Health Awareness Month by creating code that brings peace, 
-              positivity, and support to yourself and others.
+              <span className="font-bold text-gray-100">Description: </span>
+              {post.content}
             </p>
             
-            <p className="text-gray-300 mb-4">
-              If you're new to coding, this is a wonderful moment to take a small, brave step. Your 
-              project doesn't need to be perfect—just honest and heartfelt. Every voice matters, and 
-              we'd love to see what you create. 🌸
-            </p>
             
-            <div className="mb-4">
-              <h3 className="font-bold text-gray-100 mb-2">🌟 Challenge:</h3>
-              <p className="text-gray-300 mb-2">Create one original code project based on one of the following 3 themes:</p>
-              <ul className="list-none text-gray-300 space-y-1 ml-4">
-                <li>- Calm & Mindfulness</li>
-                <li>Breathing animations, soothing soundscapes, peaceful visuals</li>
-                <li>- Positive Affirmations & Motivation</li>
-                <li>Daily affirmations, compliment or quote generators, uplifting messages</li>
-                <li>- Mental Wellness Tools</li>
-                <li>Mood trackers, gratitude logs, journaling prompts, self-care checklists</li>
-              </ul>
-            </div>
-            
-            <p className="text-gray-300 mb-4">
-              Let your creativity flow with empathy, intention, and imagination.
-            </p>
-            
-            <div className="bg-gray-700 p-4 rounded-lg mb-4">
+            {/* <div className="bg-gray-700 p-4 rounded-lg mb-4">
               <div className="flex items-center gap-2 mb-2">
                 <Award className="w-5 h-5 text-cyan-400" />
                 <span className="font-bold text-gray-100">Rewards: Win Sololearn PRO/MAX, Bits, and XP</span>
@@ -151,16 +152,9 @@ const SingleDiscussion = () => {
                   <span>Only one code entry per user - make it your most thoughtful creation</span>
                 </div>
               </div>
-            </div>
+            </div> */}
             
-            <div className="flex items-center gap-2 mb-4">
-              <Award className="w-5 h-5 text-cyan-400" />
-              <span className="text-gray-100 font-medium">The Sololearn Zen Judges will be looking for originality, impact, and balance.</span>
-            </div>
             
-            <p className="text-gray-300">
-              Let's take care of our minds—and each other—through code. 🌸
-            </p>
           </div>
         </motion.div>
 
