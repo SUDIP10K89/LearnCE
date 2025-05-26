@@ -16,7 +16,7 @@ export default function Navbar() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
-      console.log("User state changed:", currentUser.displayName);
+      
     });
     return () => unsubscribe();
   }, []);

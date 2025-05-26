@@ -1,74 +1,82 @@
-import { useState, useEffect } from 'react';
-import { ArrowUp, MessageCircle, ChevronDown, Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import debounce from 'lodash.debounce';
+import { useState, useEffect, useMemo } from "react";
+import {
+  ArrowUp,
+  MessageCircle,
+  ChevronDown,
+  Search,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import debounce from "lodash.debounce";
+import { auth } from "../components/firebase";
 
 const Discussions = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState('Trending');
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [user, setUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("Trending");
   const [discussions, setDiscussions] = useState([]);
-
   const navigate = useNavigate();
 
-  // Fetch discussions
+  // Handle Auth Change
   useEffect(() => {
-    const getDiscussions = async () => {
+    const unsubscribe = auth.onAuthStateChanged(setUser);
+    return unsubscribe;
+  }, []);
+
+  // Fetch discussions once when user is available
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchDiscussions = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/posts`
+        const token = await user.getIdToken();
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/posts`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
-        setDiscussions(response.data.data.posts);
+        setDiscussions(res.data.data.posts);
       } catch (error) {
-        console.error('Error fetching discussions:', error);
+        console.error("Error fetching discussions:", error);
       }
     };
 
-    getDiscussions();
-  }, []);
+    fetchDiscussions();
+  }, [user]);
 
-  // Debounced search
-  useEffect(() => {
-    const debouncedSearch = debounce(() => {
-      const query = searchQuery.trim().toLowerCase();
-
-      if (query === '') {
-        setFilteredItems([]);
-        return;
-      }
-
-      const results = discussions.filter((item) =>
-        item.title.toLowerCase().includes(query)
-      );
-
-      setFilteredItems(results);
-    }, 300);
-
-    debouncedSearch();
-    return () => debouncedSearch.cancel();
+  // Filtered discussions (memoized)
+  const filteredItems = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return [];
+    return discussions.filter((d) =>
+      d.title.toLowerCase().includes(query)
+    );
   }, [searchQuery, discussions]);
 
-  // Animation variants
+  // Debounced search input
+  const debouncedSearch = debounce((e) => {
+    setSearchQuery(e.target.value);
+  }, 300);
+
+  // Filter logic placeholder (extend for real filters later)
+  const displayItems =
+    searchQuery && filteredItems.length > 0
+      ? filteredItems
+      : searchQuery
+      ? []
+      : discussions;
+
+  const handleCardClick = (id) => navigate(`/singlequestion/${id}`);
+
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
 
-  const displayItems =
-    searchQuery.trim() !== '' && filteredItems.length > 0
-      ? filteredItems
-      : searchQuery.trim() !== '' && filteredItems.length === 0
-      ? [] 
-      : discussions;
-
-  const handleShowDiscussion = (id) => {
-    navigate(`/singlequestion/${id}`);
-  }
-
   return (
-    <div className="container md:px-40  min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
+    <div className="container md:px-40 min-w-full h-[100vh] overflow-auto mx-auto px-4 py-6 pt-16 bg-gradient-to-br from-gray-900 to-gray-800 max-w-5xl">
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -77,27 +85,24 @@ const Discussions = () => {
         Q&A Discussions
       </motion.h1>
 
-      {/* Search and filter row */}
+      {/* Search and Filters */}
       <div className="flex flex-col gap-4 mb-6">
-        <div className="w-full">
-          <form onSubmit={(e) => e.preventDefault()} className="flex w-full max-w-2xl">
-            <input
-              type="text"
-              placeholder="Search discussions..."
-              className="flex-grow p-2 bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all text-gray-100 placeholder:text-gray-400"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Search discussions"
-            />
-            <button
-              type="submit"
-              className="bg-gray-800 text-cyan-400 font-medium px-4 md:px-6 py-2 rounded-r-md hover:bg-gray-700 transition-colors"
-              aria-label="Submit search"
-            >
-              <Search className="h-4 w-4" />
-            </button>
-          </form>
-        </div>
+        <form onSubmit={(e) => e.preventDefault()} className="flex w-full max-w-2xl">
+          <input
+            type="text"
+            placeholder="Search discussions..."
+            className="flex-grow p-2 bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-gray-100 placeholder:text-gray-400"
+            onChange={debouncedSearch}
+            aria-label="Search discussions"
+          />
+          <button
+            type="submit"
+            className="bg-gray-800 text-cyan-400 font-medium px-4 md:px-6 py-2 rounded-r-md hover:bg-gray-700 transition-colors"
+            aria-label="Submit search"
+          >
+            <Search className="h-4 w-4" />
+          </button>
+        </form>
 
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           <div className="relative w-full sm:w-64">
@@ -127,24 +132,26 @@ const Discussions = () => {
         </div>
       </div>
 
-      {/* Show "No results" message */}
-      {searchQuery.trim() !== '' && filteredItems.length === 0 && (
-        <p className="text-gray-400 mb-4">No discussions found for "{searchQuery}".</p>
+      {/* No Results */}
+      {searchQuery && filteredItems.length === 0 && (
+        <p className="text-gray-400 mb-4">
+          No discussions found for "{searchQuery}".
+        </p>
       )}
 
-      {/* Discussions list */}
+      {/* Discussion Cards */}
       <AnimatePresence>
         <div className="space-y-4">
           {displayItems.map((discussion) => (
             <motion.div
               key={discussion._id}
-              onClick={() => {handleShowDiscussion(discussion._id)}}
+              onClick={() => handleCardClick(discussion._id)}
               variants={cardVariants}
               initial="hidden"
               animate="visible"
               exit="hidden"
               transition={{ duration: 0.3 }}
-              className="bg-gray-800 border border-gray-700 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              className="bg-gray-800 border border-gray-700 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -159,7 +166,7 @@ const Discussions = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {discussion.tags.map((tag) => (
+                  {discussion.tags?.map((tag) => (
                     <span
                       key={tag}
                       className="bg-gray-700 text-cyan-400 text-xs px-2 py-1 rounded-md"
@@ -182,9 +189,11 @@ const Discussions = () => {
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs md:text-sm">{discussion.date}</span>
+                    <span className="text-xs md:text-sm">
+                      {discussion.date}
+                    </span>
                     <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-gray-100">
-                      {discussion.author.charAt(0)}
+                      {discussion.author?.charAt(0) || "U"}
                     </div>
                   </div>
                 </div>
