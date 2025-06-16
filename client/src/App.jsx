@@ -12,9 +12,18 @@ import InstallButton from "./components/InstallButton";
 import MyProfile from "./pages/MyProfile";
 import AskQuestionForm from "./pages/AskQuestionForm";
 import SingleDiscussion from "./pages/SingleDiscussion"
+import { useEffect, useState } from "react";
+
+import { auth } from "./components/firebase";
 
 
 const App = () => {
+   const [user, setUser] = useState(null);
+
+     useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(setUser);
+    return unsubscribe;
+  }, []);
   return (
     <div>
       <InstallButton/>
@@ -35,7 +44,7 @@ const App = () => {
           {/* discussion */}
           <Route path="/discussion" element={<Discussion />} />
           <Route path="/askquestion" element={<AskQuestionForm />} />
-          <Route path="/singlequestion/:id" element={<SingleDiscussion />} />
+          <Route path="/singlequestion/:id"  element={<SingleDiscussion user={user} />} />
 
         </Routes>
     </div>

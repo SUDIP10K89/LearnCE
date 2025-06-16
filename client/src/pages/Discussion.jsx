@@ -27,10 +27,12 @@ const Discussions = () => {
   // Fetch discussions once when user is available
   useEffect(() => {
     if (!user) return;
-
+    
     const fetchDiscussions = async () => {
       try {
         const token = await user.getIdToken();
+        localStorage.setItem('token',token)
+      
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/posts`,
           {
@@ -190,7 +192,7 @@ const Discussions = () => {
 
                   <div className="flex items-center space-x-2">
                     <span className="text-xs md:text-sm">
-                      {discussion.date}
+                      {Date(discussion.createdAt)}
                     </span>
                     <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-gray-100">
                       {discussion.author?.charAt(0) || "U"}
