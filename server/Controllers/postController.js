@@ -115,6 +115,43 @@ const deletePost = async (req, res) => {
         });
     }
 };
+//Update Post
+const updatePost = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Post not found'
+            });
+        }
+
+        // Check if the logged in user is the creator of the post
+        // if (post.email.toString() !== req.user.email) {
+        //     return res.status(403).json({
+        //         status: 'fail',
+        //         message: 'You do not have permission to update this post'
+        //     });
+        // }
+
+        const { title, content, tags } = req.body;
+        if (title !== undefined) post.title = title;
+        if (content !== undefined) post.content = content;
+        if (tags !== undefined) post.tags = tags;
+
+        await post.save();
+
+        res.status(200).json({
+            status: 'success',
+            data: { post }
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error.message
+        });
+    }
+};
 
 
 //export
@@ -122,6 +159,7 @@ module.exports = {
     createPost,
     getAllPosts,
     getSinglePost,
-    deletePost
+    deletePost,
+    updatePost,
 };
 

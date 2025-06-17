@@ -1,5 +1,5 @@
 const express = require('express');
-const {createPost,getAllPosts,getSinglePost,deletePost} = require('../Controllers/postController'); 
+const {createPost,getAllPosts,getSinglePost,deletePost,updatePost} = require('../Controllers/postController'); 
 const authenticate = require('../middlewares/auth');
 
 const router = express.Router();
@@ -15,5 +15,8 @@ router.get('/:id', getSinglePost);
 
 //Delete Post
 router.delete('/:id',authenticate,deletePost)
+
+//Update Post
+router.put('/:id',updatePost)
 
 module.exports = router;

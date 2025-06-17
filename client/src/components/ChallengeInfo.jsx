@@ -38,14 +38,14 @@ const ChallengeInfo = ({ post,user}) => {
     };
   }, []);
 
-  const handleUpdate = () => {
-    console.log("Update post:", post._id);
-    setShowMenu(false);
+  const token = localStorage.getItem('token');
+  const handleUpdate =async () => {
+    navigate(`/askquestion/${post._id}`)
   };
 
   const handleDelete = async() => {
      try {
-        const token = localStorage.getItem('token')
+
       
         const res = await axios.delete(
           `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}`,
@@ -105,7 +105,7 @@ const ChallengeInfo = ({ post,user}) => {
                   onClick={handleUpdate}
                   className="block w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-gray-600"
                 >
-                  Update
+                  Edit
                 </button>
                 <button
                   onClick={handleDelete}
