@@ -2,6 +2,7 @@ const admin = require("../firebase");
 
 const authenticate = async (req, res, next) => {
   const authHeader = req.headers.authorization;
+  console.log(authHeader)
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ error: "Unauthorized" });
   }
@@ -11,6 +12,7 @@ const authenticate = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken; // attach user info to req
+    
     next();
   } catch (error) {
     console.error("Token verification failed:", error);

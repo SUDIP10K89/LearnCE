@@ -23,7 +23,7 @@ const App = () => {
      useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(setUser);
     return unsubscribe;
-  }, []);
+  },[]);
   return (
     <div>
       <InstallButton/>

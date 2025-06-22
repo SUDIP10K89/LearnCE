@@ -58,12 +58,12 @@ const AskQuestionForm = () => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const token = localStorage.getItem("token");
+  console.log(token)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      console.log(token)
       if (isEdit) {
         const response = await axios.put(
           `${import.meta.env.VITE_BACKEND_URL}/api/posts/${id}`,

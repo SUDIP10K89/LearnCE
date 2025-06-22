@@ -4,16 +4,18 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const ChallengeInfo = ({ post,user}) => {
+const ChallengeInfo = ({ post, user }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [voteCount, setVoteCount] = useState(0);
+  const [voteCount, setVoteCount] = useState(post.likes?.length||0);
   const menuRef = useRef(null);
 
 
   const isOwner = post.email == user.email;
+  
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -38,36 +40,58 @@ const ChallengeInfo = ({ post,user}) => {
     };
   }, []);
 
-  const token = localStorage.getItem('token');
-  const handleUpdate =async () => {
-    navigate(`/askquestion/${post._id}`)
+  const token = localStorage.getItem("token");
+  const handleUpdate = async () => {
+    navigate(`/askquestion/${post._id}`);
   };
 
-  const handleDelete = async() => {
-     try {
-
-      
-        const res = await axios.delete(
-          `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-      if(res.data.status == 'success'){
-        navigate('/discussion')
+  const handleDelete = async () => {
+    try {
+      const res = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (res.data.status == "success") {
+        navigate("/discussion");
+       
       }
-      } catch (error) {
-        console.error("Error Deleting", error);
-      }
-    };
+    } catch (error) {
+      console.error("Error Deleting", error);
+    }
+  };
 
-  const handleLikeToggle = () => {
-    setIsLiked(!isLiked);
-    setVoteCount((prev) => (isLiked ? prev - 1 : prev + 1));
-    console.log(
-      `Toggled like for post ${post._id}: ${!isLiked ? "Liked" : "Unliked"}`
+ const handleLikeToggle = async () => {
+  try {
+    await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}/like`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
-  };
+
+    setIsLiked((prev) => !prev);
+    setVoteCount((prev) => prev + (isLiked ? -1 : 1));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+useEffect(() => {
+  if (post.likes?.includes(user.reloadUserInfo.localId)) {
+    setIsLiked(true);
+  }
+  setVoteCount(post.likes?.length)
+  console.log(post.likes,user.reloadUserInfo.localId)
+}, [post.likes, user._id]);
+
+
+
+
+
 
   return (
     <motion.div
@@ -119,36 +143,31 @@ const ChallengeInfo = ({ post,user}) => {
         </div>
       )}
       <div className="border-l-4 border-cyan-400 pl-6">
-        
-
         <div className="flex items-center gap-2 mb-4">
           {/* <Award className="w-5 h-5 text-cyan-400" /> */}
-          <h2 className="text-2xl font-bold text-gray-100">
-            {post.title}
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-100">{post.title}</h2>
         </div>
 
         <p className="text-gray-300 mb-4">
           <span className="font-bold text-gray-100">Description: </span>
           {post.content}
         </p>
-        
       </div>
       <div className="flex items-center gap-2 mb-2">
-          <button
-            onClick={handleLikeToggle}
-            className={`flex items-center justify-center cursor-pointer ${
-              isLiked ? "text-cyan-400" : "text-gray-300"
-            } hover:text-cyan-400 transition-colors`}
-          >
-            <ThumbsUp
-              className="w-5 h-5"
-              fill={isLiked ? "currentColor" : "none"}
-              stroke={isLiked ? "currentColor" : "currentColor"}
-            />
-          </button>
-          <span className="text-gray-100 font-medium">+ {voteCount}</span>
-        </div>
+        <button
+          onClick={handleLikeToggle}
+          className={`flex items-center justify-center cursor-pointer ${
+            isLiked ? "text-cyan-400" : "text-gray-300"
+          } hover:text-cyan-400 transition-colors`}
+        >
+          <ThumbsUp
+            className="w-5 h-5"
+            fill={isLiked ? "currentColor" : "none"}
+            stroke={isLiked ? "currentColor" : "currentColor"}
+          />
+        </button>
+        <span className="text-gray-100 font-medium">+ {voteCount}</span>
+      </div>
     </motion.div>
   );
 };

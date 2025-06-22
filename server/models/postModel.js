@@ -16,13 +16,13 @@ const postSchema = new mongoose.Schema({
     email:{
         type:String
     },
+    likes:{
+        type:[String],
+        default:[]
+    },
     tags: {
         type: [String],
         default: []
-    },
-    votes:{
-        type:Number,
-        default:0
     },
     answers:{
         type:Number,
