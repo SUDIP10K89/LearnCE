@@ -7,15 +7,11 @@ import { useNavigate } from "react-router-dom";
 const ChallengeInfo = ({ post, user }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [voteCount, setVoteCount] = useState(post.likes?.length||0);
+  const [voteCount, setVoteCount] = useState(0);
   const menuRef = useRef(null);
 
-
-  const isOwner = post.email == user.email;
-  
-
+  const isOwner = post.email === user.email;
   const navigate = useNavigate();
-
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -41,6 +37,7 @@ const ChallengeInfo = ({ post, user }) => {
   }, []);
 
   const token = localStorage.getItem("token");
+
   const handleUpdate = async () => {
     navigate(`/askquestion/${post._id}`);
   };
@@ -49,49 +46,41 @@ const ChallengeInfo = ({ post, user }) => {
     try {
       const res = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}`,
-        {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      if (res.data.status == "success") {
+      if (res.data.status === "success") {
         navigate("/discussion");
-       
       }
     } catch (error) {
       console.error("Error Deleting", error);
     }
   };
 
- const handleLikeToggle = async () => {
-  try {
-    await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}/like`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+  const handleLikeToggle = async () => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/posts/${post._id}/like`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-    setIsLiked((prev) => !prev);
-    setVoteCount((prev) => prev + (isLiked ? -1 : 1));
-  } catch (error) {
-    console.log(error);
-  }
-};
+      setIsLiked((prev) => !prev);
+      setVoteCount((prev) => prev + (isLiked ? -1 : 1));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-useEffect(() => {
-  if (post.likes?.includes(user.reloadUserInfo.localId)) {
-    setIsLiked(true);
-  }
-  setVoteCount(post.likes?.length)
-  console.log(post.likes,user.reloadUserInfo.localId)
-}, [post.likes, user._id]);
-
-
-
-
-
+  useEffect(() => {
+    if (post.likes?.includes(user.reloadUserInfo.localId)) {
+      setIsLiked(true);
+    }
+    setVoteCount(post.likes?.length || 0);
+  }, [post.likes, user.reloadUserInfo.localId]);
 
   return (
     <motion.div
@@ -110,7 +99,7 @@ useEffect(() => {
       </div>
 
       {isOwner && (
-        <div className="absolute top-4 right-4" ref={menuRef}>
+        <div className="absolute top-4 right-4 z-20" ref={menuRef}>
           <button
             onClick={() => setShowMenu(!showMenu)}
             className="text-gray-300 hover:text-cyan-400 focus:outline-none"
@@ -122,7 +111,7 @@ useEffect(() => {
               variants={menuVariants}
               initial="hidden"
               animate="visible"
-              className="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-lg shadow-lg z-10"
+              className="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-lg shadow-lg z-30"
             >
               <div className="py-1">
                 <button
@@ -142,9 +131,9 @@ useEffect(() => {
           )}
         </div>
       )}
+
       <div className="border-l-4 border-cyan-400 pl-6">
         <div className="flex items-center gap-2 mb-4">
-          {/* <Award className="w-5 h-5 text-cyan-400" /> */}
           <h2 className="text-2xl font-bold text-gray-100">{post.title}</h2>
         </div>
 
@@ -153,19 +142,22 @@ useEffect(() => {
           {post.content}
         </p>
       </div>
+
       <div className="flex items-center gap-2 mb-2">
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           onClick={handleLikeToggle}
-          className={`flex items-center justify-center cursor-pointer ${
+          className={`p-2 rounded-full flex items-center justify-center cursor-pointer ${
             isLiked ? "text-cyan-400" : "text-gray-300"
-          } hover:text-cyan-400 transition-colors`}
+          } hover:text-cyan-400 focus:outline-none transition-colors`}
+          aria-label="Like"
         >
           <ThumbsUp
-            className="w-5 h-5"
+            className="w-6 h-6"
             fill={isLiked ? "currentColor" : "none"}
             stroke={isLiked ? "currentColor" : "currentColor"}
           />
-        </button>
+        </motion.button>
         <span className="text-gray-100 font-medium">+ {voteCount}</span>
       </div>
     </motion.div>
