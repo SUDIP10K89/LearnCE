@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const ChallengeInfo = ({ post, user }) => {
+    if (!post || !user) return null; 
   const [showMenu, setShowMenu] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [voteCount, setVoteCount] = useState(0);
