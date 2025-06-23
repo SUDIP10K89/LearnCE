@@ -41,7 +41,7 @@ const createAnswer =async (req,res) => {
 const getAnswer =async (req,res) => {
     try {
         const postId = req.params.postId;
-        const answers = await Answer.find();
+        const answers = await Answer.find({postId});
 
 
         res.json({
