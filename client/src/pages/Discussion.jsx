@@ -182,7 +182,7 @@ const Discussions = () => {
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center">
                       <ArrowUp className="h-4 w-4 mr-1 text-cyan-400" />
-                      <span>{discussion.votes} Votes</span>
+                      <span>{discussion.likes.length} Votes</span>
                     </div>
                     <div className="flex items-center">
                       <MessageCircle className="h-4 w-4 mr-1 text-cyan-400" />

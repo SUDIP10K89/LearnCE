@@ -60,12 +60,12 @@ const AnswerItem = ({ answer }) => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-xs font-bold text-gray-100">
-                  {answer.avatar}
+                  {answer.answeredBy.name[0]}
                 </div>
-                <span className="text-sm font-medium text-gray-100">{answer.author}</span>
+                <span className="text-sm font-medium text-gray-100">{answer.answeredBy.name}</span>
               </div>
             </div>
-            <span className="text-xs text-gray-300">{answer.timestamp}</span>
+            <span className="text-xs text-gray-300">{Date(answer.createdAt)}</span>
           </div>
         </div>
       </div>
