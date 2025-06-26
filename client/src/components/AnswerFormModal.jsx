@@ -1,7 +1,12 @@
-import React from 'react';
+
+import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from 'react-router-dom';
+
 
 const AnswerFormModal = ({ showAnswerForm, setShowAnswerForm, answerText, setAnswerText, charactersRemaining, setCharactersRemaining }) => {
+  const {id} = useParams();
+
   const handleAnswerTextChange = (e) => {
     const text = e.target.value;
     setAnswerText(text);
@@ -14,12 +19,58 @@ const AnswerFormModal = ({ showAnswerForm, setShowAnswerForm, answerText, setAns
     setCharactersRemaining(2048);
   };
 
-  const handlePost = () => {
-    console.log('Posting answer:', answerText);
-    setShowAnswerForm(false);
-    setAnswerText('');
-    setCharactersRemaining(2048);
+  const token = localStorage.getItem("token");
+  console.log(token)
+
+  const handlePost = async (e) => {
+    // console.log('Posting answer:', answerText);
+    
+
+    const isEdit = false
+    e.preventDefault();
+    try {
+      if (isEdit) {
+        const response = await axios.put(
+          `${import.meta.env.VITE_BACKEND_URL}/api/posts/${id}`,
+          {
+            title: question,
+            content: description,
+            tags,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        if (response.data.status === "success") {
+          navigate("/discussion");
+        }
+      } else {
+        console.log(answerText)
+        const response = await axios.post(
+          import.meta.env.VITE_BACKEND_URL + `/api/answers/${id}`,
+          {
+            content:answerText
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log(response)
+        if (response.data.success === true) {
+          setShowAnswerForm(false);
+          setAnswerText('');
+          setCharactersRemaining(2048);
+        }
+      }
+    } catch (error) {
+      console.error("Error submitting post:", error);
+    } finally {
+      
+    }
+
+
   };
+  
 
   return (
     <AnimatePresence>
