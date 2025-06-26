@@ -62,7 +62,7 @@ const AnswersList = ({ answers, sortBy, setSortBy, setShowAnswerForm }) => {
 
       <div className="space-y-4">
         {sortedAnswers.map((answer) => (
-          <AnswerItem key={answer.id} answer={answer} />
+          <AnswerItem key={answer.id} answer={answer}/>
         ))}
       </div>
     </motion.div>
